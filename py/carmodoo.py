@@ -11,7 +11,7 @@ time.sleep(5)
 pyautogui.click()
 pyautogui.press('enter')
 
-time.sleep(20)
+time.sleep(10)
 
 carmodoo_id = os.getenv('CARMODOO_ID')
 carmodoo_pw = os.getenv('CARMODOO_PW')
@@ -21,8 +21,9 @@ pyautogui.press('tab')
 pyautogui.typewrite(carmodoo_pw)
 pyautogui.press('enter')
 
-time.sleep(20)
+time.sleep(10)
 
 pyautogui.moveTo(500, 50)
 time.sleep(2)
-pyautogui.moveRel(None, 10)
+pyautogui.moveRel(None, 45)
+pyautogui.click()
