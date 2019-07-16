@@ -23,4 +23,6 @@ pyautogui.press('enter')
 
 time.sleep(20)
 
-pyautogui.moveTo(500, 75)
+pyautogui.moveTo(500, 50)
+time.sleep(2)
+pyautogui.moveRel(None, 10)
