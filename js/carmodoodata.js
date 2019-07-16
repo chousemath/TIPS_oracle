@@ -15,10 +15,11 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     robot.moveMouse(desktopIconLocation.width, desktopIconLocation.height);
     robot.mouseClick();
     robot.keyTap('enter');
-    await sleep(5000);
+    await sleep(30000);
     robot.typeString(process.env.CARMODOO_ID);
     robot.keyTap('tab');
     robot.typeString(process.env.CARMODOO_PW);
     robot.keyTap('enter');
+    await sleep(30000);
 })();
 
