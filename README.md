@@ -15,4 +15,8 @@ $ node encardata.js -c foreign # for foreign vehicles
 ```bash
 # on your cloud server, install forever js
 $ npm install forever -g
+$ cd js
+$ chmod +x scrape.sh # give execution permission to the scraping script
+$ ./scrape.sh # run several instances of the scraping script
+$ forever list # check to make sure your processes are ok
 ```
