@@ -4,13 +4,16 @@
   "description": "Used car prediction engine for the Korean government",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "watch": "./node_modules/.bin/tsc -w"
   },
   "author": "Joseph Sungpil Choi",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^12.6.8",
     "@types/puppeteer": "^1.12.4",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
     "typescript": "^3.5.3"
   },
   "dependencies": {

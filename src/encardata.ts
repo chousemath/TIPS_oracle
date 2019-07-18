@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import puppeteer from 'puppeteer';
 import _ from 'lodash';
 import { config } from 'dotenv';
+const { colorToNumber } = require('mappings');
 config();
 
 const cmdr = new Command();
@@ -39,6 +40,7 @@ interface VehicleDetails {
   price: number;
   inquiries: number;
   likes: number;
+  colorCode: number;
   inspectionPerformed: boolean;
   title: string;
   year: string;
@@ -118,6 +120,7 @@ client.connect((err: Error) => {
                   price: 0,
                   inquiries: 0,
                   likes: 0,
+                  colorCode: 0,
                   inspectionPerformed: false,
                   title: '',
                   year: '',
@@ -165,6 +168,10 @@ client.connect((err: Error) => {
                 details.displacement = listItemsInner[4];
                 details.transmission = listItemsInner[5];
                 details.color = listItemsInner[6];
+
+                // convert string color value into a numeric value (better for neural network)
+                details.colorCode = colorToNumber(details.color);
+
                 details.plateNumber = listItemsInner[7].replace('차량번호', '');
                 const goods = Array.from(document.getElementsByClassName('goods')) as Array<HTMLDivElement>;
                 const dealerText0 = goods[0].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/ /g, '');

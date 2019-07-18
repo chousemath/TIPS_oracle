@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const lodash_1 = __importDefault(require("lodash"));
+const colors_to_numbers_json_1 = __importDefault(require("../mappings/colors_to_numbers.json"));
 const dotenv_1 = require("dotenv");
-const { colorToNumber } = require('mappings');
 dotenv_1.config();
+console.log(colors_to_numbers_json_1.default);
 const cmdr = new commander_1.Command();
 cmdr
     .version('0.0.1')
@@ -71,7 +72,6 @@ client.connect((err) => {
                                     price: 0,
                                     inquiries: 0,
                                     likes: 0,
-                                    colorCode: 0,
                                     inspectionPerformed: false,
                                     title: '',
                                     year: '',
@@ -120,8 +120,6 @@ client.connect((err) => {
                                 details.displacement = listItemsInner[4];
                                 details.transmission = listItemsInner[5];
                                 details.color = listItemsInner[6];
-                                // convert string color value into a numeric value (better for neural network)
-                                details.colorCode = colorToNumber(details.color);
                                 details.plateNumber = listItemsInner[7].replace('차량번호', '');
                                 const goods = Array.from(document.getElementsByClassName('goods'));
                                 const dealerText0 = goods[0].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/ /g, '');
