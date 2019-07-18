@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import puppeteer from 'puppeteer';
 import _ from 'lodash';
 import { config } from 'dotenv';
-const { colorToNumber } = require('mappings');
+const { colorToNumber } = require('./mappings');
 config();
 
 const cmdr = new Command();
@@ -41,6 +41,7 @@ interface VehicleDetails {
   inquiries: number;
   likes: number;
   colorCode: number;
+  timestamp: number;
   inspectionPerformed: boolean;
   title: string;
   year: string;
@@ -82,7 +83,8 @@ interface Inspection {
 }
 
 client.connect((err: Error) => {
-  const collection = client.db('oracle').collection('encar');
+  const collectionEncar = client.db('oracle').collection('encar');
+  const collectionSortingRequired = client.db('oracle').collection('sortingrequired');
   (async () => {
     const scrapeEncar = async (pageLimit: number, pageLink: string) => {
       const baseURL = (pageNumber: number) => pageLink.replace('page%22%3A1', `page%22%3A${pageNumber}`);
@@ -95,7 +97,9 @@ client.connect((err: Error) => {
       // await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 9_0_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A404 Safari/601.1')
       for (let pageLink of pageLinks) {
         try {
-          await page.goto(pageLink);
+          await page.goto(pageLink, {
+            waitUntil: 'networkidle2',
+          });
           const getDetailPageLinks = await page.evaluate(() => {
             let hrefs = [];
             const anchorTags = Array.from(document.getElementsByTagName('a'));
@@ -121,6 +125,7 @@ client.connect((err: Error) => {
                   inquiries: 0,
                   likes: 0,
                   colorCode: 0,
+                  timestamp: 0,
                   inspectionPerformed: false,
                   title: '',
                   year: '',
@@ -170,8 +175,6 @@ client.connect((err: Error) => {
                 details.color = listItemsInner[6];
 
                 // convert string color value into a numeric value (better for neural network)
-                details.colorCode = colorToNumber(details.color);
-
                 details.plateNumber = listItemsInner[7].replace('차량번호', '');
                 const goods = Array.from(document.getElementsByClassName('goods')) as Array<HTMLDivElement>;
                 const dealerText0 = goods[0].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/ /g, '');
@@ -223,12 +226,38 @@ client.connect((err: Error) => {
                 details['성능/상태점검자'] = inspectionLight[3];
                 return details;
               });
-              let data: any = getDetailImages;
+              let data: VehicleDetails = getDetailImages;
+
+
+              /*
+               * if the color has not yet be categorized by us,
+               * save it to a database so we can categorize to asap
+              */
+              data.colorCode = colorToNumber(data.color);
+              if (data.colorCode === 0) {
+                const doc = collectionSortingRequired.findOne({ value: data.color })
+                if (!doc) {
+                  const payload = {
+                    source: 'encar',
+                    category: 'color',
+                    value: data.color,
+                    valueType: Object.prototype.toString.call(data.color),
+                    timestamp: Math.floor(Date.now() / 1000),
+                  };
+                  collectionSortingRequired.insertOne(payload, (err: Error, res: any) => {
+                    if (err) console.log(`MongoDB Error (sorting required): ${err}`);
+                    else console.log(`Problematic color (${data.color}) saved`);
+                  });
+                }
+              }
+
               data.images = _.uniq(data.images);
 
               if (data.inspectionPerformed) {
                 const inspectionLink = `http://www.encar.com/md/sl/mdsl_regcar.do?method=inspectionViewNew&carid=${data.encarNumber}&wtClick_carview=015`;
-                await page.goto(inspectionLink);
+                await page.goto(inspectionLink, {
+                  waitUntil: 'networkidle2',
+                });
                 const getInspectionDetails = await page.evaluate(() => {
                   let inspect: Inspection = {
                     carInfo: '',
@@ -329,7 +358,7 @@ client.connect((err: Error) => {
               }
               data.timestamp = Math.floor(Date.now() / 1000);
               data.options = data.options.map((opt: string) => opt.trim());
-              collection.insertOne(data, (err: Error, res: any) => {
+              collectionEncar.insertOne(data, (err: Error, res: any) => {
                 if (err) console.log(`MongoDB Error: ${err}`);
                 else console.log('Document inserted successfully into MongoDB');
               });
