@@ -2,12 +2,10 @@ import pymongo
 import dotenv
 import pathlib
 import os
-import unicodedata
 import json
 import io
+from normalize import normalize
 
-def normalize(input: str) -> str:
-    return unicodedata.normalize('NFC', input)
 
 # load in colors that have already been mapped
 mapping_path = pathlib.Path('..') / 'mappings' / 'colors_to_numbers.json'
