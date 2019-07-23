@@ -2,6 +2,8 @@
 
 ### Usage Instructions
 
+* You need to get the `bigquery-key.json` file from your technical lead in order to access your BigQuery instance
+
 ```bash
 # If you want to edit the encar scraper...
 $ npm run watch # start the typescript auto compiler
