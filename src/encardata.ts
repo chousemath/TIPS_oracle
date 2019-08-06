@@ -3,6 +3,8 @@ import puppeteer from 'puppeteer';
 import _ from 'lodash';
 import { config } from 'dotenv';
 const { colorToNumber } = require('./mappings');
+const { BigQuery } = require('@google-cloud/bigquery');
+
 config();
 
 const cmdr = new Command();
