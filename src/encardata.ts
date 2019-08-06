@@ -3,7 +3,6 @@ import puppeteer from 'puppeteer';
 import _ from 'lodash';
 import { config } from 'dotenv';
 const { colorToNumber } = require('./mappings');
-const { BigQuery } = require('@google-cloud/bigquery');
 
 config();
 
@@ -155,13 +154,19 @@ client.connect((err: Error) => {
                   options: [],
                   images: [],
                 };
-                const h1s = Array.from(document.getElementsByTagName('h1'));
-                for (let h1 of h1s) {
-                  if (h1.className === 'name') {
-                    details.title = h1.innerHTML;
-                    details.title = details.title.replace('</span>', '').replace('</span>', '').replace('<span class="brand">', '').replace('<span class="detail">', '')
+                const productNames = Array.from(document.getElementsByClassName('prod_name'));
+                for (let productName of productNames) {
+                  if ((productName as HTMLDivElement).innerText) {
+                    details.title = (productName as HTMLDivElement).innerText;
                   }
                 }
+                // const h1s = Array.from(document.getElementsByTagName('h1'));
+                // for (let h1 of h1s) {
+                //   if (h1.className === 'name') {
+                //     details.title = h1.innerHTML;
+                //     details.title = details.title.replace('</span>', '').replace('</span>', '').replace('<span class="brand">', '').replace('<span class="detail">', '')
+                //   }
+                // }
                 const listItems = document.getElementsByClassName('prod_infomain')[0].getElementsByTagName('li');
                 const listItemsInner = Array.from(listItems).map(listItem => {
                   const val = listItem.innerHTML.split('<a')[0].replace('<span class="blind">', '').replace('</span>', '').replace(/(\r\n|\n|\r)/gm, '').replace(/ /g, '');
