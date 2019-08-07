@@ -92,5 +92,6 @@ $ forever list # check to make sure your processes are ok
 * Split by region
 
 * How did price decrease with Japan hate?
+* View carmanager first (gyeongido)
 
 
