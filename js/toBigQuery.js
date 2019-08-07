@@ -12,6 +12,12 @@ const safeInnerStr = (data, attrName) => {
     }
     return '';
 };
+const safeStrArr = (rawArr) => {
+    if (rawArr) {
+        return rawArr;
+    }
+    return [];
+};
 const safeNum = (rawNum) => {
     if (rawNum) {
         return rawNum;
@@ -24,25 +30,11 @@ const convert = (data) => {
     }
     ;
     const dcp = data.comprehensiveStatus;
-    const comprehensiveStatus = {
-        distanceInstrumentationStatus: safeInnerStr(dcp, '주행거리 계기상태'),
-        drivingDistanceCondition: safeInnerStr(dcp, '주행거리 상태'),
-        vehicleNumberNotation: safeInnerStr(dcp, '차대번호 표기'),
-        emissions: safeInnerStr(dcp, '배출가스'),
-    };
-    const inspection = {
-        carInfo: safeStr(data.carInfo),
-        comments: safeStr(data.comments),
-        inspectionDate: safeStr(data.inspectionDate),
-        usedCarPerformanceChecker: '',
-        usedCarsPerformanceStatusStudy: '',
-        comprehensiveStatus,
-    };
+    const drs = data.repairStatus;
+    const dsd = data.stateDetails;
     const koPerfCheck = '중고자동차 성능 상태 점검자';
-    inspection.usedCarPerformanceChecker = safeStr(data[koPerfCheck]);
     const koPerfStudy = '중고자동차 성능 상태 고지자';
-    inspection.usedCarsPerformanceStatusStudy = safeStr(data[koPerfStudy]);
-    return {
+    const result = {
         title: data.title,
         mileage: data.mileage,
         year: data.year,
@@ -66,6 +58,59 @@ const convert = (data) => {
         vehicleDetails: data.vehicleDetails,
         options: data.options,
         images: data.images,
-        inspection,
+        // inspection
+        carInfo: safeStr(data.carInfo),
+        comments: safeStr(data.comments),
+        inspectionDate: safeStr(data.inspectionDate),
+        visual: safeStrArr(data.visual),
+        usedCarPerformanceChecker: safeStr(data[koPerfCheck]),
+        usedCarsPerformanceStatusStudy: safeStr(data[koPerfStudy]),
+        // inspection/comprehensiveStatus
+        distanceInstrumentationStatus: safeInnerStr(dcp, '주행거리 계기상태'),
+        drivingDistanceCondition: safeInnerStr(dcp, '주행거리 상태'),
+        vehicleNumberNotation: safeInnerStr(dcp, '차대번호 표기'),
+        emissions: safeInnerStr(dcp, '배출가스'),
+        tuning: safeInnerStr(dcp, '튜닝'),
+        specialHistory: safeInnerStr(dcp, '특별이력'),
+        reuseChange: safeInnerStr(dcp, '용도변경'),
+        mainOption: safeInnerStr(dcp, '주요옵션'),
+        // inspection/repairStatus
+        accidentHistory: '',
+        simpleRepairs: '',
+        abnormalConditionBySite1: '',
+        abnormalConditionBySite2: '',
+        abnormalConditionBySite3: '',
+        selfDiagnosisCircuit: '',
+        selfDiagnosisTransmission: '',
+        motivatorsOperatingStateIdle: '',
+        copperOilRockerArmCover: '',
+        motorOilCylinderHeadGasket: '',
+        motivatorsOilPens: '',
+        motivatorOilFlowRate: '',
+        driversCooledWaterLeakCylinderHeadGasket: '',
+        motorCooledWaterLeakWaterPump: '',
+        actuatorCooledWaterLeakRadiator: '',
+        driversCooledWaterLeakCooledWaterVolume: '',
+        motivatorsHighPressurePumpsCommonRailDieselEngines: '',
+        transmissionAutomaticTransmissionATOil: '',
+        automaticTransmissionATOilFlowRateAndCondition: '',
+        automaticTransmissionATOperatingStatePublic: '',
+        powerTransferClutchAssembly: '',
+        powerTransferEquivalentJunction: '',
+        powerTransferPreshaftAndBear: '',
+        steeringPowerHandlingOilLeakage: '',
+        steeringOperatingStateSteeringGear: '',
+        steeringOperationConditionsSteeringPump: '',
+        steeringOperatingStateTierodEndAndBallJoint: '',
+        brakeMasterCylinderOilLeakage: '',
+        brakeFluidLeak: '',
+        brakingDrainageStatus: '',
+        electricalGeneratorOutput: '',
+        electricalStartMotor: '',
+        electricalWipeMotorFunction: '',
+        electricsInteriorsTransmissionMotor: '',
+        electricalRadiatorFanMotor: '',
+        electricalWindowsMotor: '',
     };
+    return result;
 };

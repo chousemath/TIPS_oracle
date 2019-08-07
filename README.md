@@ -83,37 +83,14 @@ $ forever list # check to make sure your processes are ok
 * `전기---윈도우 모터` => `electricalWindowsMotor`
 
 
+### Wed Aug  7 13:36:27 KST 2019
 
+* Lease Car vs. Cash Car
+* Cash Car - Rent Car, Accident Car
+* Split by options
+* Split by color
+* Split by region
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* How did price decrease with Japan hate?
 
 

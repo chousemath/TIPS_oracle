@@ -312,6 +312,7 @@ client.connect((err) => {
                             }
                             data.timestamp = Math.floor(Date.now() / 1000);
                             data.options = data.options.map((opt) => opt.trim());
+                            console.log(data);
                             collectionEncar.insertOne(data, (err, res) => {
                                 if (err)
                                     console.log(`MongoDB Error: ${err}`);

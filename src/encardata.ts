@@ -365,6 +365,7 @@ client.connect((err: Error) => {
               }
               data.timestamp = Math.floor(Date.now() / 1000);
               data.options = data.options.map((opt: string) => opt.trim());
+              console.log(data);
               collectionEncar.insertOne(data, (err: Error, res: any) => {
                 if (err) console.log(`MongoDB Error: ${err}`);
                 else console.log('Document inserted successfully into MongoDB');
