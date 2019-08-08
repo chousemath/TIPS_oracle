@@ -8,6 +8,7 @@ const puppeteer_1 = __importDefault(require("puppeteer"));
 const lodash_1 = __importDefault(require("lodash"));
 const dotenv_1 = require("dotenv");
 const { colorToNumber } = require('./mappings');
+const { convertAndInsert } = require('./toBigQuery');
 dotenv_1.config();
 const cmdr = new commander_1.Command();
 cmdr
@@ -312,7 +313,7 @@ client.connect((err) => {
                             }
                             data.timestamp = Math.floor(Date.now() / 1000);
                             data.options = data.options.map((opt) => opt.trim());
-                            console.log(data);
+                            console.log(convertAndInsert(data));
                             collectionEncar.insertOne(data, (err, res) => {
                                 if (err)
                                     console.log(`MongoDB Error: ${err}`);

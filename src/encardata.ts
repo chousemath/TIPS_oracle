@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer';
 import _ from 'lodash';
 import { config } from 'dotenv';
 const { colorToNumber } = require('./mappings');
+const { convertAndInsert } = require('./toBigQuery');
 
 config();
 
@@ -365,7 +366,7 @@ client.connect((err: Error) => {
               }
               data.timestamp = Math.floor(Date.now() / 1000);
               data.options = data.options.map((opt: string) => opt.trim());
-              console.log(data);
+              console.log(convertAndInsert(data));
               collectionEncar.insertOne(data, (err: Error, res: any) => {
                 if (err) console.log(`MongoDB Error: ${err}`);
                 else console.log('Document inserted successfully into MongoDB');
