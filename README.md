@@ -3,6 +3,11 @@
 ### Usage Instructions
 
 * You need to get the `bigquery-key.json` file from your technical lead in order to access your BigQuery instance
+* In the same directory as encardata.js, make sure to set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the file path to `bigquery-key.json`, for example
+
+```bash
+$ export GOOGLE_APPLICATION_CREDENTIALS="./bigquery-key.json"
+```
 
 ```bash
 # If you want to edit the encar scraper...
