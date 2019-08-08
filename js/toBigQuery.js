@@ -54,6 +54,7 @@ const convert = (data) => {
     const koPerfCheck = '중고자동차 성능 상태 점검자';
     const koPerfStudy = '중고자동차 성능 상태 고지자';
     const result = {
+        _id: Math.floor(Math.random() * 1000000).toString() + (new Date()).getTime().toString(),
         title: data.title,
         mileage: data.mileage,
         year: data.year,

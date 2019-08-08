@@ -32,6 +32,7 @@ const safeNum = (rawNum: number): number => {
 };
 interface BQObj {
   // default (most shallow)
+  _id: string;
   title: string;
   mileage: number;
   year: string;
@@ -134,6 +135,7 @@ const convert = (data: any): BQObj | null => {
   const koPerfStudy = '중고자동차 성능 상태 고지자';
 
   const result = {
+    _id: Math.floor(Math.random() * 1000000).toString() + (new Date()).getTime().toString(),
     title: data.title,
     mileage: data.mileage,
     year: data.year,
