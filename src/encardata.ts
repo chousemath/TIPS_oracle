@@ -85,7 +85,6 @@ interface Inspection {
 }
 
 client.connect((err: Error) => {
-  const collectionEncar = client.db('oracle').collection('encar');
   const collectionSortingRequired = client.db('oracle').collection('sortingrequired');
   (async () => {
     const scrapeEncar = async (pageLimit: number, pageLink: string) => {
@@ -367,10 +366,6 @@ client.connect((err: Error) => {
               data.timestamp = Math.floor(Date.now() / 1000);
               data.options = data.options.map((opt: string) => opt.trim());
               console.log(convertAndInsert(data));
-              collectionEncar.insertOne(data, (err: Error, res: any) => {
-                if (err) console.log(`MongoDB Error: ${err}`);
-                else console.log('Document inserted successfully into MongoDB');
-              });
             } catch (error) { console.log('Error navigating to detail page', error); }
           }
         } catch (error) { console.error('Error navigating to list page', error); }

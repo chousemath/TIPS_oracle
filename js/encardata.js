@@ -34,7 +34,6 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect((err) => {
-    const collectionEncar = client.db('oracle').collection('encar');
     const collectionSortingRequired = client.db('oracle').collection('sortingrequired');
     (async () => {
         const scrapeEncar = async (pageLimit, pageLink) => {
@@ -314,12 +313,6 @@ client.connect((err) => {
                             data.timestamp = Math.floor(Date.now() / 1000);
                             data.options = data.options.map((opt) => opt.trim());
                             console.log(convertAndInsert(data));
-                            collectionEncar.insertOne(data, (err, res) => {
-                                if (err)
-                                    console.log(`MongoDB Error: ${err}`);
-                                else
-                                    console.log('Document inserted successfully into MongoDB');
-                            });
                         }
                         catch (error) {
                             console.log('Error navigating to detail page', error);
