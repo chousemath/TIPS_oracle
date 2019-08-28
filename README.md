@@ -87,6 +87,9 @@ $ forever list # check to make sure your processes are ok
 * `전기---라디에이터 팬 모터` => `electricalRadiatorFanMotor`
 * `전기---윈도우 모터` => `electricalWindowsMotor`
 
+### Wed Aug 28 10:30:21 KST 2019 (meeting with just HJ)
+
+* 
 
 ### Wed Aug  7 13:36:27 KST 2019
 
