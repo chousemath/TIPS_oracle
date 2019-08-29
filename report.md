@@ -1,6 +1,6 @@
 # **Project Summary**
 
-> The process for developing our vehicle image classifier had 3 major stages. There were (1) data collection, (2) data processing and organization, and (3) classifier training. Step (1) was performed because there was no good open source of image data we could use or buy when we first started the project. We were forced to collect all the image data ourselves from the internet. Step (2) was performed because using the raw image data in the training process resulted in very long training times. We did our best to keep training times (and compute costs) low by converting our images to black-and-white. In some cases, we also removed company watermarks, and other unecessary objects from the images. We also extracted frames from videos we took of vehicles. A description of our video-to-image data pipeline is described below. In order to expand our body of image data, we performed several data augmentation techniques by transforming our images in various ways (e.g. image rotation, addition of blur and noise, etc.). Details concerning these image transformations can be found in a description below. Step (3) was the actual AI component of our project, where we trained an image classifier to recognize different kinds of vehicles using the data prepared in steps (1) and (2). You can find descriptions of each stage of the process below.
+> The process for developing our vehicle image classifier had 4 major stages. There were (1) data collection, (2) data processing and organization, (3) classifier training, and (4) mobile app integration. Step (1) was performed because there was no good open source of image data we could use or buy when we first started the project. We were forced to collect all the image data ourselves from the internet. Step (2) was performed because using the raw image data in the training process resulted in very long training times. We did our best to keep training times (and compute costs) low by converting our images to black-and-white. In some cases, we also removed company watermarks, and other unecessary objects from the images. We also extracted frames from videos we took of vehicles. A description of our video-to-image data pipeline is described below. In order to expand our body of image data, we performed several data augmentation techniques by transforming our images in various ways (e.g. image rotation, addition of blur and noise, etc.). Details concerning these image transformations can be found in a description below. Step (3) was the actual AI component of our project, where we trained an image classifier to recognize different kinds of vehicles using the data prepared in steps (1) and (2). You can find descriptions of each stage of the process below.
 
 ### **Step 1: Data Collection**
 
@@ -41,5 +41,27 @@
 * `Adding Gaussian Noise`: We were able to generate new images by adding varying amounts of [Gaussian noise](https://www.researchgate.net/profile/Jianhua_Wu3/publication/272201387/figure/fig7/AS:614046587957254@1523411523349/Decrypted-images-Barbara-and-Peppers-with-different-Gaussian-noise-intensities-k.png)
 * `Cropping`: We generated additional images by auto-cropping our images so that objects in our images that were not the main vehicle were removed (as much as possible). We did this using the Python [smartcrop library](https://github.com/smartcrop/smartcrop.py) combined with OpenCV.
 
+### **Step 3: Training the Image Classifier
+
+#### *(Part 1) Data Compression, Cloud Storage*
+
+> Loading image data into our cloud servers for training required that we first upload that data into cloud storage. We used Google Cloud Platform for all of our AI-related workloads. Within Google Cloud Platform, we used Compute Engine to run all of our training scripts, and Google Cloud Storage to hold all of our training data. Before each training session, we would compress and upload our most recent dataset to Google Cloud Storage, and then access that data from Google Compute Engine.
+
+#### *(Part 2) Data Decompression, Classifier Training*
+
+> From Compute Engine, we would download the compressed data set from Cloud Storage, decompress it, and then start our image classifier training script. We used the [ImageAI](https://github.com/OlafenwaMoses/ImageAI) Python library to train our image classifier. ImageAI is a wrapper around the the open source machine learning library called Keras. The ImageAI library's high level functionality allowed for us to quickly implement a classifier training script without having to worry too much about small details of tuning of our machine learning model. We did end up modifying the `number of training epochs` and `batch size` in order to improve the performance of our classifier. Each time we trained our image classifier, it took up to 3 days to finish. The output from this process was an image classification model that could be used by our mobile app backend.
+
+![Alt diagram of training](./report_files/training.svg)
 
 
+### **Step 4: Image Classifier Server, Mobile App Integration
+
+#### *(Part 1) Image Classifier Server
+
+> We built a simple REST API server using the [Flask](https://github.com/pallets/flask) library, a Python library for building APIs. The job of that server was to load in the image classifier model that we generated in the previous step, accept vehicle prediction requests from a mobile app, and respond to that request with the correct prediction (vehicle brand, model, year, etc.). This server also had access to our database of vehicle prices and physical specs, and included that data in its responses to requests from our mobile app.
+
+#### *(Part 2) Mobile App Integration*
+
+> The final step of our project was to modify our mobile app to send image data to our REST API, receive data from our REST API, and display that data. In order to do this, we had to add two sections to our existing mobile app. The first section was button that activated the camera of the mobile phone, and sent that image data to our REST API. The second section was page that displayed the photo, and all of the predicted vehicle data for that photo (including what kind of vehicle it was, the physical specs of that vehicle, and the estimated price range). 
+
+![Alt diagram of mobile integration](./report_files/mobile_integration.svg)

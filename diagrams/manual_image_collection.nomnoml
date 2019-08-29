@@ -1,0 +1,6 @@
+[youtube] -> [Pytube]
+[Pytube] -> [downloaded videos]
+[downloaded videos] -> [OpenCV]
+[manual videos] -> [OpenCV]
+[manual photos] -> [master image pool]
+[OpenCV] -> [master image pool]

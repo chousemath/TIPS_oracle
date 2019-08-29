@@ -1,0 +1,31 @@
+<svg width="318" height="554" version="1.1" baseProfile="full" viewbox="0 0 318 554" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" style="font-weight:bold; font-size:12pt; font-family:'Calibri', Helvetica, sans-serif;;stroke-width:3;stroke-linejoin:round;stroke-linecap:round"><path d="M188 44.5 L188 64.5 L188 84.5 L188 84.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M182.7 71.2 L188 77.8 L193.3 71.2 L188 84.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M188 115.5 L188 135.5 L188 155.5 L188 155.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M182.7 142.2 L188 148.8 L193.3 142.2 L188 155.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M156.8 186.5 L116.5 206.5 L116.5 226.5 L116.5 226.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M111.2 213.2 L116.5 219.8 L121.8 213.2 L116.5 226.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M116.5 257.5 L116.5 277.5 L156.8 297.5 L156.8 297.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M142.5 296.3 L150.8 294.5 L147.2 286.8 L156.8 297.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M219.2 186.5 L259.5 206.5 L259.5 242 L259.5 242 L259.5 277.5 L259.5 277.5 L219.2 297.5 L219.2 297.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M188 328.5 L188 348.5 L188 368.5 L188 368.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M182.7 355.2 L188 361.8 L193.3 355.2 L188 368.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M188 399.5 L188 419.5 L188 439.5 L188 439.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M182.7 426.2 L188 432.8 L193.3 426.2 L188 439.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M188 470.5 L188 490.5 L188 510.5 L188 510.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M182.7 497.2 L188 503.8 L193.3 497.2 L188 510.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<rect x="123.5" y="13.5" height="31" width="130" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188.5" y="35" style="text-anchor: middle;">local images</text>
+<rect x="132.5" y="84.5" height="31" width="111" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188" y="106" style="text-anchor: middle;">zip script</text>
+<rect x="142.5" y="155.5" height="31" width="92" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188.5" y="177" style="text-anchor: middle;">zip file</text>
+<rect x="13.5" y="226.5" height="31" width="206" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="116.5" y="248" style="text-anchor: middle;">Google Cloud Storage</text>
+<rect x="85.5" y="297.5" height="31" width="206" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188.5" y="319" style="text-anchor: middle;">decompression script</text>
+<rect x="108.5" y="368.5" height="31" width="159" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188" y="390" style="text-anchor: middle;">unzipped images</text>
+<rect x="80.5" y="439.5" height="31" width="216" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188.5" y="461" style="text-anchor: middle;">Google Compute Engine</text>
+<rect x="70.5" y="510.5" height="31" width="235" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="188" y="532" style="text-anchor: middle;">ImageAI Training Script</text></svg>

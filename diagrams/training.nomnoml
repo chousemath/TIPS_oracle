@@ -1,0 +1,9 @@
+[local images] -> [zip script]
+[zip script] -> [zip file]
+[zip file] -> [Google Cloud Storage]
+[Google Cloud Storage] -> [decompression script]
+[zip file] - [decompression script]
+[decompression script] -> [unzipped images]
+[unzipped images] -> [Google Compute Engine]
+[Google Compute Engine] -> [ImageAI Training Script]
+
