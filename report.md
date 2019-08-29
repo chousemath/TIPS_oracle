@@ -29,6 +29,17 @@
 
 > After performing a few benchmarks, we found that removing color from our image data before training our image classifier could reduce our training times by up to 30% without any significant difference in classification accuracy. As a result, we converted our images to black-and-white throughout the development process of our image classifier. We did this again using the Python library for OpenCV.
 
+#### *(Part 1) Image Transformations
+
+> Because we did not have enough images to train our classifier, we expanded our dataset by performing transformations on the images we already had to generate new, modified images. We again used OpenCV to perform the image transformations listed below. Each transformation generated at least one new image that we could add to our dataset.
+
+#### *Types of Image Transformations*
+
+* `Image Translation`: Shifting the entire image left, right, up, or down allowed us to generate multiple new images from a single image.
+* `Image Rotation`: Like `Image Translation`, by rotating the image by varying degrees, we were able to generate multiple new images.
+* `Adding Salt-Pepper Noise`: We were able to generate new images by adding varying amounts of [salt-pepper noise](https://www.researchgate.net/profile/Atta_Rahman2/publication/280314734/figure/fig4/AS:307983025229827@1450440283959/Recovered-image-from-salt-and-pepper-noise.png) to our images.
+* `Adding Gaussian Noise`: We were able to generate new images by adding varying amounts of [Gaussian noise](https://www.researchgate.net/profile/Jianhua_Wu3/publication/272201387/figure/fig7/AS:614046587957254@1523411523349/Decrypted-images-Barbara-and-Peppers-with-different-Gaussian-noise-intensities-k.png)
+* `Cropping`: We generated additional images by auto-cropping our images so that objects in our images that were not the main vehicle were removed (as much as possible). We did this using the Python [smartcrop library](https://github.com/smartcrop/smartcrop.py) combined with OpenCV.
 
 
 
