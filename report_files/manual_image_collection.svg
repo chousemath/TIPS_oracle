@@ -1,0 +1,26 @@
+<svg width="455" height="341" version="1.1" baseProfile="full" viewbox="0 0 455 341" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" style="font-weight:bold; font-size:12pt; font-family:'Calibri', Helvetica, sans-serif;;stroke-width:3;stroke-linejoin:round;stroke-linecap:round"><path d="M173.5 44.5 L173.5 64.5 L173.5 84.5 L173.5 84.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M168.2 71.2 L173.5 77.8 L178.8 71.2 L173.5 84.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M173.5 115.5 L173.5 135.5 L173.5 155.5 L173.5 155.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M168.2 142.2 L173.5 148.8 L178.8 142.2 L173.5 155.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M173.5 186.5 L173.5 206.5 L229.6 226.5 L229.6 226.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M215.2 227 L223.3 224.3 L218.8 217 L229.6 226.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M372.5 186.5 L372.5 206.5 L316.4 226.5 L316.4 226.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M327.2 217 L322.7 224.3 L330.8 227 L316.4 226.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M83.5 257.5 L83.5 277.5 L136.9 297.5 L136.9 297.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M122.5 297.8 L130.6 295.2 L126.3 287.8 L136.9 297.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<path d="M273 257.5 L273 277.5 L219.6 297.5 L219.6 297.5 " style="stroke:#33322E;fill:none;stroke-dasharray:none;"></path>
+<path d="M230.2 287.8 L225.9 295.2 L234 297.8 L219.6 297.5 Z" style="stroke:#33322E;fill:#33322E;stroke-dasharray:none;"></path>
+<rect x="132.5" y="13.5" height="31" width="83" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="174" y="35" style="text-anchor: middle;">youtube</text>
+<rect x="80.5" y="84.5" height="31" width="187" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="174" y="106" style="text-anchor: middle;">youtube downloader</text>
+<rect x="84.5" y="155.5" height="31" width="178" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="173.5" y="177" style="text-anchor: middle;">downloaded videos</text>
+<rect x="193.5" y="226.5" height="31" width="159" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="273" y="248" style="text-anchor: middle;">frame extractor</text>
+<rect x="302.5" y="155.5" height="31" width="140" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="372.5" y="177" style="text-anchor: middle;">manual videos</text>
+<rect x="13.5" y="226.5" height="31" width="140" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="83.5" y="248" style="text-anchor: middle;">manual photos</text>
+<rect x="89.5" y="297.5" height="31" width="178" style="stroke:#33322E;fill:#eee8d5;stroke-dasharray:none;"></rect>
+<text x="178.5" y="319" style="text-anchor: middle;">master image pool</text></svg>
