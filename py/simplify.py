@@ -1,9 +1,6 @@
 import unicodedata
 import json
 
-categories = {}
-fuels = {}
-
 def normalize(input: str) -> str:
     return unicodedata.normalize('NFC', input)
 
@@ -12,6 +9,12 @@ with open('category_map.json') as json_file:
 
 with open('fuel_map.json') as json_file:
     fuels = json.load(json_file)
+
+with open('transmission_map.json') as json_file:
+    transmissions = json.load(json_file)
+
+with open('color_map.json') as json_file:
+    colors = json.load(json_file)
 
 def expand_year(year: str) -> str:
     year = int(year)
@@ -41,10 +44,21 @@ def simplify_fuel(fuel: str) -> int:
         return fuels[fuel]
     return 0
 
+def simplify_transmission(transmission: str) -> int:
+    if transmission in transmissions:
+        return transmissions[transmission]
+    return 0
+
 def simplify_category(category: str) -> int:
     if category in categories:
         return categories[category]
     return 0
+
+def simplify_color(color: str) -> int:
+    if color in colors:
+        return colors[color]
+    return 0
+
 
 def simplify_displacement(displacement: str) -> int:
     if 'cc' in displacement:
