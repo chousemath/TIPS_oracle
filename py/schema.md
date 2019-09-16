@@ -8,6 +8,7 @@
 * insuranceReportDate: STRING
 * vehicleDetails: STRING
 * year: STRING (refer to simplify.py)
+* options: STRING (REPEATED)
 * mileage: INTEGER
 * fuel: INTEGER (refer to simplify.py)
 * category: INTEGER (refer to simplify.py)
