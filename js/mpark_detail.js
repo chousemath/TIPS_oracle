@@ -14,7 +14,7 @@ const puppeteer_1 = __importDefault(require("puppeteer"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const lodash_1 = __importDefault(require("lodash"));
-const data = require('./links.json');
+const data = require('./links_mpark.json');
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
     const browser = await puppeteer_1.default.launch({
@@ -28,7 +28,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
             await page.goto(link, { waitUntil: 'networkidle2' });
             const html = await page.content();
             const name = `${(new Date()).valueOf()}-${Math.floor(100000000 * Math.random())}.html`;
-            await fs.writeFile(path.join(__dirname, 'pages_detail', name), html, (err) => {
+            await fs.writeFile(path.join(__dirname, 'pages_detail_mpark', name), html, (err) => {
                 if (err)
                     console.log(err);
             });

@@ -22,13 +22,21 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         args: ['--no-sandbox'],
     });
     const page = await browser.newPage();
-    for (let pg = 1; pg < 1600; pg++) {
-        await page.goto(baseURL(pg), { waitUntil: 'networkidle2' });
-        const html = await page.content();
-        const name = `${(new Date()).valueOf()}-${Math.floor(10000000 * Math.random())}.html`;
-        await fs.writeFile(path.join(__dirname, 'pages_list', name), html, (err) => {
-            console.log(err);
-        });
+    for (let pg = 1; pg < 1583; pg++) {
+        try {
+            await page.goto(baseURL(pg), { waitUntil: 'networkidle2' });
+            const html = await page.content();
+            const name = `${(new Date()).valueOf()}-${Math.floor(10000000 * Math.random())}.html`;
+            await fs.writeFile(path.join(__dirname, 'pages_list', name), html, (err) => {
+                if (err)
+                    console.log(err);
+                else
+                    console.log(`page: ${pg}`);
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     await browser.close();
 })();
