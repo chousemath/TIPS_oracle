@@ -1,7 +1,8 @@
 import puppeteer from 'puppeteer';
 import * as fs from 'fs';
 import * as path from 'path';
-const links = require('./links.json');
+import _ from 'lodash';
+const data = require('./links.json');
 
 
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
@@ -11,6 +12,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         args: ['--no-sandbox'],
     });
     const page = await browser.newPage();
+    const links = _.shuffle(Object.keys(data));
     for (let link in links) {
         await page.goto(link, { waitUntil: 'networkidle2' });
         const html = await page.content();

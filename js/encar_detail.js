@@ -13,7 +13,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const links = require('./links.json');
+const lodash_1 = __importDefault(require("lodash"));
+const data = require('./links.json');
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
     const browser = await puppeteer_1.default.launch({
@@ -21,6 +22,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         args: ['--no-sandbox'],
     });
     const page = await browser.newPage();
+    const links = lodash_1.default.shuffle(Object.keys(data));
     for (let link in links) {
         await page.goto(link, { waitUntil: 'networkidle2' });
         const html = await page.content();
