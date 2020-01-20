@@ -1,0 +1,28 @@
+import puppeteer from 'puppeteer';
+import * as fs from 'fs';
+import * as path from 'path';
+
+const root = 'http://www.encar.com/fc/fc_carsearchlist.do?carType=for#!%7B%22action%22%3A%22(And.Hidden.N._.CarType.N.)%22%2C%22toggle%22%3A%7B%7D%2C%22layer%22%3A%22%22%2C%22sort%22%3A%22ModifiedDate%22%2C%22page%22%3A1%2C%22limit%22%3A20%7D';
+const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
+(async () => {
+    const baseURL = (pgNum: number): string => root.replace('page%22%3A1', `page%22%3A${pgNum}`);
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox'],
+    });
+    const page = await browser.newPage();
+    for (let pg = 1; pg < 1600; pg++) {
+        await page.goto(baseURL(pg), { waitUntil: 'networkidle2' });
+        const html = await page.content();
+        const name = `${(new Date()).valueOf()}-${Math.floor(10000000 * Math.random())}.html`
+        await fs.writeFile(path.join(__dirname, 'pages_list', name), html, (err) => {
+            console.log(err);
+        });
+    }
+    await browser.close();
+})();
+
+/*
+ * - pages_list
+ * - pages_detail
+ * */
