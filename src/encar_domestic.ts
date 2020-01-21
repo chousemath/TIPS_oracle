@@ -11,7 +11,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         args: ['--no-sandbox'],
     });
     const page = await browser.newPage();
-    for (let pg = 1; pg < 3; pg++) {
+    for (let pg = 1; pg < 3500; pg++) {
         try {
             await page.goto(baseURL(pg), { waitUntil: 'networkidle2' });
             const html = await page.content();

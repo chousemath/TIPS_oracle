@@ -13,7 +13,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
     const page = await browser.newPage();
     for (let pg = 1; pg < 1583; pg++) {
         try {
-            await page.goto(baseURL(pg), { waitUntil: 'networkidle2' });
+            await page.goto(baseURL(pg), { waitUntil: 'networkidle2', timeout: 0 });
             const html = await page.content();
             const name = `${(new Date()).valueOf()}-${Math.floor(10000000 * Math.random())}.html`
             await fs.writeFile(path.join(__dirname, 'pages_list', name), html, (err) => {
