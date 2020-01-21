@@ -19,7 +19,7 @@
 
 set -o nounset                              # Treat unset variables as an error
 
-while [1]
+while true
 do
     node mpark_detail.js
 done
