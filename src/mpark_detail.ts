@@ -12,8 +12,9 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
     });
     const page = await browser.newPage();
     const links = _.shuffle(Object.keys(data));
-    for (let link in links) {
+    for (let link of links) {
         try {
+            console.log(link);
             await page.goto(link, { waitUntil: 'networkidle2' });
             const html = await page.content();
             const name = `${(new Date()).valueOf()}-${Math.floor(100000000 * Math.random())}.html`
