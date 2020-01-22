@@ -36,9 +36,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         await sleep(1000);
         await page.goto(`${root}/${extList}`, { waitUntil: 'networkidle2', timeout: 0 });
         const links = _.shuffle(Object.keys(data));
-        console.log(links);
         await page.evaluate(() => window.scrollTo(0,document.body.scrollHeight));
-        await page.screenshot({path: 'aj.png'});
         for (let link of links) {
             try {
                 await page.evaluate((_link: string) => carInfo(_link), link);
@@ -53,7 +51,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
                 console.log(e);
             }
         }
-    console.log('encar_detail.ts has finished running');
+        console.log('encar_detail.ts has finished running');
     } catch(e) {
         console.log(e);
     }
