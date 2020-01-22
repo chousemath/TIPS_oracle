@@ -26,7 +26,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
     for (let link of links) {
         try {
             console.log(link);
-            await page.goto(link, { waitUntil: 'networkidle2' });
+            await page.goto(link, { waitUntil: 'networkidle2', timeout: 0 });
             const html = await page.content();
             const name = `${(new Date()).valueOf()}-${Math.floor(100000000 * Math.random())}.html`;
             await fs.writeFile(path.join(__dirname, 'pages_detail_mpark', name), html, (err) => {

@@ -34,7 +34,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         await page.keyboard.press('Enter'); // press enter key
         await sleep(1000);
         await page.goto(`${root}/${extList}`, { waitUntil: 'networkidle2', timeout: 0 });
-        for (let i = 1; i < 4; i++) {
+        for (let i = 1; i < 150; i++) {
             await page.evaluate((idx: string) => CmPageMove(idx, '100'), `${i}`);
             await sleep(3000);
             const html = await page.content();
