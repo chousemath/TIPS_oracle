@@ -1,0 +1,11 @@
+from typing import List
+from distutils.core import setup
+from Cython.Build import cythonize
+
+mods: List[str] = [
+    'cparse_pages_list.pyx',
+    'cparse_pages_list_encar_domestic.pyx',
+        ]
+for mod in mods:
+    setup(ext_modules = cythonize(mod, compiler_directives={'language_level' : '3'}))
+
