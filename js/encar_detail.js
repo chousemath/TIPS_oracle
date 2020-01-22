@@ -37,5 +37,6 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
             console.log(e);
         }
     }
+    console.log('encar_detail.ts has finished running');
     await browser.close();
 })();
