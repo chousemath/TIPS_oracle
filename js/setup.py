@@ -7,7 +7,7 @@ mods: List[str] = [
     'cparse_pages_list_mpark.pyx',
     'cparse_pages_list_aj.pyx',
     'cparse_pages_list_encar_domestic.pyx',
-        ]
+]
 for mod in mods:
-    setup(ext_modules = cythonize(mod, compiler_directives={'language_level' : '3'}))
-
+    setup(ext_modules=cythonize(
+        mod, compiler_directives={'language_level': '3'}))
