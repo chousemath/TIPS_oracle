@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from typing import List, Tuple
 from os import listdir, path
+from htmlmin import minify
 
 Route = Tuple[str, str]
 
@@ -14,7 +15,7 @@ def decompose(route: Route):
             for head in soup.findAll('head'):
                 head.decompose()
             with open(path.join(dst_dir, fname), 'w') as f:
-                f.write(str(soup))
+                f.write(minify(str(soup)))
 
 
 routes: List[Route] = [
@@ -24,5 +25,8 @@ routes: List[Route] = [
     ('pages_detail_aj', 'html_src_aj'),
 ]
 
-for route in routes:
-    decompose(route)
+if __name__ == '__main__':
+    while True:
+        for route in routes:
+            decompose(route)
+        print('Finished with a round of decomposition')
