@@ -3,3 +3,7 @@ node_modules
 bigquery-key.json
 *.html
 *.zip
+csv_aj
+csv_aj/*
+csv_encar
+csv_encar/*
