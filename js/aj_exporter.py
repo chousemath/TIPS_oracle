@@ -24,11 +24,18 @@ if __name__ == '__main__':
             fpath = path.join(argv[1], fname)
             with open(fpath, 'r') as f:
                 soup = BS(f, 'lxml')
-                div = soup.find_all('div', class_='details-block')[0]
+                div = soup.find('div', class_='details-block')
                 data = [clean(x.text) for x in div.find_all('li') if x.text]
                 h2 = ''.join([x.text for x in soup.find_all('h2', class_='tit_style2')]).replace('\n', '').replace('  ', '')
                 h2 = ''.join([x for x in h2.split('\t') if x][1:])
                 data.append(h2)
+                for table in soup.find_all('table', class_='keepStuff'):
+                    if '편의' in table.text:
+                        inps = [x.get('title', '') for x in table.find_all('input', class_='inpu_chek') if x.get('checked') == 'checked']
+                        inps = '///'.join(inps)
+                price = soup.find('strong', class_='i_comm_main_txt2').text
+                data.append(inps)
+                data.append(price)
                 full_data.append(data)
 
         name = f'aj-{int(time())}.csv'
