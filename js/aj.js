@@ -16,12 +16,10 @@ const path = __importStar(require("path"));
 const root = 'http://www.sellcarauction.co.kr';
 const extLogin = 'newfront/login.do';
 const extList = 'newfront/receive/rc/receive_rc_list.do';
+const pageLimit = 175; // conservative page limit
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer_1.default.launch({
-        headless: true,
-        args: ['--no-sandbox'],
-    });
+    const browser = await puppeteer_1.default.launch({ headless: true, args: ['--no-sandbox'] });
     try {
         const page = await browser.newPage();
         await page.setViewport({ width: 1366, height: 768 });
@@ -34,7 +32,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         await page.keyboard.press('Enter'); // press enter key
         await sleep(1000);
         await page.goto(`${root}/${extList}`, { waitUntil: 'networkidle2', timeout: 0 });
-        for (let i = 1; i < 150; i++) {
+        for (let i = 1; i < pageLimit; i++) {
             await page.evaluate((idx) => CmPageMove(idx, '100'), `${i}`);
             await sleep(3000);
             const html = await page.content();
@@ -51,7 +49,3 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
     }
     await browser.close();
 })();
-/*
- * - pages_list
- * - pages_detail
- * */

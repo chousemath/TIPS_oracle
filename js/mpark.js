@@ -14,6 +14,7 @@ const puppeteer_1 = __importDefault(require("puppeteer"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const root = 'http://www.m-park.co.kr/buy/my_car_list.asp?gotopage=1&sListOrder=DemoDay_D&sPageSize=39&sSearch=1';
+const pageLimit = 175; // conservative page limit
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
     const baseURL = (pgNum) => root.replace('gotopage=1', `gotopage=${pgNum}`);
@@ -22,7 +23,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         args: ['--no-sandbox'],
     });
     const page = await browser.newPage();
-    for (let pg = 1; pg < 168; pg++) {
+    for (let pg = 1; pg < pageLimit; pg++) {
         try {
             await page.goto(baseURL(pg), { waitUntil: 'networkidle2', timeout: 0 });
             const html = await page.content();
@@ -41,7 +42,3 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
     console.log('mpark.ts has finished running');
     await browser.close();
 })();
-/*
- * - pages_list
- * - pages_detail
- * */
