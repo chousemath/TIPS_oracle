@@ -3,6 +3,7 @@ from os import path, listdir
 from bs4 import BeautifulSoup as BS
 from time import time
 from csv import writer
+from shutil import copy2
 
 
 def clean(in_val: str) -> str:
@@ -15,19 +16,22 @@ if __name__ == '__main__':
         print('Example usage: python aj_exporter.py html_src_aj csv_aj\n')
         exit()
 
-    full_data = []
-    for fname in [x for x in listdir(argv[1]) if '.html' in x]:
-        fpath = path.join(argv[1], fname)
-        with open(fpath, 'r') as f:
-            soup = BS(f, 'lxml')
-            div = soup.find_all('div', class_='details-block')[0]
-            data = [clean(x.text) for x in div.find_all('li') if x.text]
-            h2 = ''.join([x.text for x in soup.find_all('h2', class_='tit_style2')]).replace('\n', '').replace('  ', '')
-            h2 = ''.join([x for x in h2.split('\t') if x][1:])
-            data.append(h2)
-            full_data.append(data)
+    while True:
+        latest = sorted([x for x in listdir(argv[2]) if '.csv' in x])[-1]
+        copy2(path.join(argv[2], latest), '../aj.csv')
+        full_data = []
+        for fname in [x for x in listdir(argv[1]) if '.html' in x]:
+            fpath = path.join(argv[1], fname)
+            with open(fpath, 'r') as f:
+                soup = BS(f, 'lxml')
+                div = soup.find_all('div', class_='details-block')[0]
+                data = [clean(x.text) for x in div.find_all('li') if x.text]
+                h2 = ''.join([x.text for x in soup.find_all('h2', class_='tit_style2')]).replace('\n', '').replace('  ', '')
+                h2 = ''.join([x for x in h2.split('\t') if x][1:])
+                data.append(h2)
+                full_data.append(data)
 
-    name = f'aj-{int(time())}.csv'
-    with open(path.join(argv[2], name), 'w', newline='') as f:
-        wr = writer(f)
-        wr.writerows(full_data)
+        name = f'aj-{int(time())}.csv'
+        with open(path.join(argv[2], name), 'w', newline='') as f:
+            wr = writer(f)
+            wr.writerows(full_data)

@@ -27,6 +27,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         const links = _.shuffle(Object.keys(data));
         await page.evaluate(() => window.scrollTo(0,document.body.scrollHeight));
         for (let link of links) {
+            console.log(link);
             try {
                 await page.evaluate((_link: string) => carInfo(_link), link);
                 await sleep(3000);
@@ -40,14 +41,9 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
                 console.log(e);
             }
         }
-        console.log('encar_detail.ts has finished running');
+        console.log('aj_detail.ts has finished running');
     } catch(e) {
         console.log(e);
     }
     await browser.close();
 })();
-
-/*
- * - pages_list
- * - pages_detail
- * */
