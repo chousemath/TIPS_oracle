@@ -21,6 +21,7 @@ if __name__ == '__main__':
         copy2(path.join(argv[2], latest), '../aj.csv')
         full_data = []
         for fname in [x for x in listdir(argv[1]) if '.html' in x]:
+            ts = fname.split('-')[0]
             fpath = path.join(argv[1], fname)
             with open(fpath, 'r') as f:
                 soup = BS(f, 'lxml')
@@ -36,6 +37,7 @@ if __name__ == '__main__':
                 price = soup.find('strong', class_='i_comm_main_txt2').text
                 data.append(inps)
                 data.append(price)
+                data.append(ts)
                 full_data.append(data)
 
         name = f'aj-{int(time())}.csv'
