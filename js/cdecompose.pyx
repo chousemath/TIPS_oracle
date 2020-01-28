@@ -13,7 +13,7 @@ def decompose(route: Route):
             continue
         with open(path.join(src_dir, fname), 'r') as f:
             contents = f.read()
-            soup = BeautifulSoup(contents, 'html.parser')
+            soup = BeautifulSoup(contents, 'lxml')
             for head in soup.findAll('head'):
                 head.decompose()
             with open(dst_path, 'w') as f:

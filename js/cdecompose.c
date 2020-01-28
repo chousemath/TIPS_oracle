@@ -1348,6 +1348,7 @@ static const char __pyx_k_exit[] = "__exit__";
 static const char __pyx_k_head[] = "head";
 static const char __pyx_k_html[] = ".html";
 static const char __pyx_k_join[] = "join";
+static const char __pyx_k_lxml[] = "lxml";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_open[] = "open";
@@ -1378,7 +1379,6 @@ static const char __pyx_k_contents[] = "contents";
 static const char __pyx_k_dst_path[] = "dst_path";
 static const char __pyx_k_decompose[] = "decompose";
 static const char __pyx_k_cdecompose[] = "cdecompose";
-static const char __pyx_k_html_parser[] = "html.parser";
 static const char __pyx_k_BeautifulSoup[] = "BeautifulSoup";
 static const char __pyx_k_cdecompose_pyx[] = "cdecompose.pyx";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
@@ -1407,12 +1407,12 @@ static PyObject *__pyx_n_s_genexpr;
 static PyObject *__pyx_n_s_head;
 static PyObject *__pyx_n_u_head;
 static PyObject *__pyx_kp_u_html;
-static PyObject *__pyx_kp_u_html_parser;
 static PyObject *__pyx_n_s_htmlmin;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_isfile;
 static PyObject *__pyx_n_s_join;
 static PyObject *__pyx_n_s_listdir;
+static PyObject *__pyx_n_u_lxml;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_minify;
 static PyObject *__pyx_n_s_name;
@@ -1909,7 +1909,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
  *             continue
  *         with open(path.join(src_dir, fname), 'r') as f:             # <<<<<<<<<<<<<<
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  */
     /*with:*/ {
       __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_path); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 14, __pyx_L1_error)
@@ -2011,7 +2011,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
  *             continue
  *         with open(path.join(src_dir, fname), 'r') as f:
  *             contents = f.read()             # <<<<<<<<<<<<<<
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             for head in soup.findAll('head'):
  */
             __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L14_error)
@@ -2037,7 +2037,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
             /* "cdecompose.pyx":16
  *         with open(path.join(src_dir, fname), 'r') as f:
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')             # <<<<<<<<<<<<<<
+ *             soup = BeautifulSoup(contents, 'lxml')             # <<<<<<<<<<<<<<
  *             for head in soup.findAll('head'):
  *                 head.decompose()
  */
@@ -2057,7 +2057,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
             }
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_2)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_contents, __pyx_kp_u_html_parser};
+              PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_contents, __pyx_n_u_lxml};
               __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L14_error)
               __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_GOTREF(__pyx_t_3);
@@ -2065,7 +2065,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
             #endif
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_contents, __pyx_kp_u_html_parser};
+              PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_v_contents, __pyx_n_u_lxml};
               __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L14_error)
               __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_GOTREF(__pyx_t_3);
@@ -2080,9 +2080,9 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
               __Pyx_INCREF(__pyx_v_contents);
               __Pyx_GIVEREF(__pyx_v_contents);
               PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_8, __pyx_v_contents);
-              __Pyx_INCREF(__pyx_kp_u_html_parser);
-              __Pyx_GIVEREF(__pyx_kp_u_html_parser);
-              PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_8, __pyx_kp_u_html_parser);
+              __Pyx_INCREF(__pyx_n_u_lxml);
+              __Pyx_GIVEREF(__pyx_n_u_lxml);
+              PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_8, __pyx_n_u_lxml);
               __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L14_error)
               __Pyx_GOTREF(__pyx_t_3);
               __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -2093,7 +2093,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
 
             /* "cdecompose.pyx":17
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             for head in soup.findAll('head'):             # <<<<<<<<<<<<<<
  *                 head.decompose()
  *             with open(dst_path, 'w') as f:
@@ -2159,7 +2159,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
               __pyx_t_3 = 0;
 
               /* "cdecompose.pyx":18
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             for head in soup.findAll('head'):
  *                 head.decompose()             # <<<<<<<<<<<<<<
  *             with open(dst_path, 'w') as f:
@@ -2186,7 +2186,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
 
               /* "cdecompose.pyx":17
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             for head in soup.findAll('head'):             # <<<<<<<<<<<<<<
  *                 head.decompose()
  *             with open(dst_path, 'w') as f:
@@ -2381,7 +2381,7 @@ static PyObject *__pyx_pf_10cdecompose_decompose(CYTHON_UNUSED PyObject *__pyx_s
  *             continue
  *         with open(path.join(src_dir, fname), 'r') as f:             # <<<<<<<<<<<<<<
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  */
           }
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -2804,12 +2804,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_head, __pyx_k_head, sizeof(__pyx_k_head), 0, 0, 1, 1},
   {&__pyx_n_u_head, __pyx_k_head, sizeof(__pyx_k_head), 0, 1, 0, 1},
   {&__pyx_kp_u_html, __pyx_k_html, sizeof(__pyx_k_html), 0, 1, 0, 0},
-  {&__pyx_kp_u_html_parser, __pyx_k_html_parser, sizeof(__pyx_k_html_parser), 0, 1, 0, 0},
   {&__pyx_n_s_htmlmin, __pyx_k_htmlmin, sizeof(__pyx_k_htmlmin), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_isfile, __pyx_k_isfile, sizeof(__pyx_k_isfile), 0, 0, 1, 1},
   {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
   {&__pyx_n_s_listdir, __pyx_k_listdir, sizeof(__pyx_k_listdir), 0, 0, 1, 1},
+  {&__pyx_n_u_lxml, __pyx_k_lxml, sizeof(__pyx_k_lxml), 0, 1, 0, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_minify, __pyx_k_minify, sizeof(__pyx_k_minify), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},

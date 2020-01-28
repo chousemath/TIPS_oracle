@@ -9,7 +9,7 @@ def run():
     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
         with open(path, 'r') as f:
             contents = f.read()
-            soup = BeautifulSoup(contents, 'html.parser')
+            soup = BeautifulSoup(contents, 'lxml')
             hrefs = [a.get('onclick') for a in soup.findAll('a')]
             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]
             for href in hrefs:

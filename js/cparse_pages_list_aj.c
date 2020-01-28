@@ -1188,6 +1188,7 @@ static const char __pyx_k_href[] = "href";
 static const char __pyx_k_html[] = ".html";
 static const char __pyx_k_join[] = "join";
 static const char __pyx_k_json[] = "json";
+static const char __pyx_k_lxml[] = "lxml";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_open[] = "open";
@@ -1207,7 +1208,6 @@ static const char __pyx_k_onclick[] = "onclick";
 static const char __pyx_k_replace[] = "replace";
 static const char __pyx_k_contents[] = "contents";
 static const char __pyx_k_json_file[] = "json_file";
-static const char __pyx_k_html_parser[] = "html.parser";
 static const char __pyx_k_BeautifulSoup[] = "BeautifulSoup";
 static const char __pyx_k_links_aj_json[] = "links_aj.json";
 static const char __pyx_k_pages_list_aj[] = "pages_list_aj";
@@ -1237,7 +1237,6 @@ static PyObject *__pyx_n_s_h;
 static PyObject *__pyx_n_s_href;
 static PyObject *__pyx_n_s_hrefs;
 static PyObject *__pyx_kp_u_html;
-static PyObject *__pyx_kp_u_html_parser;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_kp_u_javascript_carInfo;
 static PyObject *__pyx_kp_u_javascript_carInfo_2;
@@ -1247,6 +1246,7 @@ static PyObject *__pyx_n_s_json_file;
 static PyObject *__pyx_n_s_links;
 static PyObject *__pyx_kp_u_links_aj_json;
 static PyObject *__pyx_n_s_listdir;
+static PyObject *__pyx_n_u_lxml;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_u_onclick;
@@ -1492,7 +1492,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
  *     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
  *         with open(path, 'r') as f:             # <<<<<<<<<<<<<<
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  */
     /*with:*/ {
       __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
@@ -1544,7 +1544,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
  *     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
  *         with open(path, 'r') as f:
  *             contents = f.read()             # <<<<<<<<<<<<<<
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             hrefs = [a.get('onclick') for a in soup.findAll('a')]
  */
             __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L18_error)
@@ -1570,7 +1570,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
             /* "cparse_pages_list_aj.pyx":12
  *         with open(path, 'r') as f:
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')             # <<<<<<<<<<<<<<
+ *             soup = BeautifulSoup(contents, 'lxml')             # <<<<<<<<<<<<<<
  *             hrefs = [a.get('onclick') for a in soup.findAll('a')]
  *             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]
  */
@@ -1590,7 +1590,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
             }
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_2)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_kp_u_html_parser};
+              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
               __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 12, __pyx_L18_error)
               __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_GOTREF(__pyx_t_3);
@@ -1598,7 +1598,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
             #endif
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_kp_u_html_parser};
+              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
               __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 12, __pyx_L18_error)
               __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_GOTREF(__pyx_t_3);
@@ -1613,9 +1613,9 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
               __Pyx_INCREF(__pyx_v_contents);
               __Pyx_GIVEREF(__pyx_v_contents);
               PyTuple_SET_ITEM(__pyx_t_12, 0+__pyx_t_11, __pyx_v_contents);
-              __Pyx_INCREF(__pyx_kp_u_html_parser);
-              __Pyx_GIVEREF(__pyx_kp_u_html_parser);
-              PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_kp_u_html_parser);
+              __Pyx_INCREF(__pyx_n_u_lxml);
+              __Pyx_GIVEREF(__pyx_n_u_lxml);
+              PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_n_u_lxml);
               __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 12, __pyx_L18_error)
               __Pyx_GOTREF(__pyx_t_3);
               __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -1626,7 +1626,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
 
             /* "cparse_pages_list_aj.pyx":13
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             hrefs = [a.get('onclick') for a in soup.findAll('a')]             # <<<<<<<<<<<<<<
  *             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]
  *             for href in hrefs:
@@ -1725,7 +1725,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
             __pyx_t_3 = 0;
 
             /* "cparse_pages_list_aj.pyx":14
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             hrefs = [a.get('onclick') for a in soup.findAll('a')]
  *             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]             # <<<<<<<<<<<<<<
  *             for href in hrefs:
@@ -1857,7 +1857,7 @@ static PyObject *__pyx_pf_20cparse_pages_list_aj_run(CYTHON_UNUSED PyObject *__p
  *     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
  *         with open(path, 'r') as f:             # <<<<<<<<<<<<<<
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  */
           }
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2236,7 +2236,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_href, __pyx_k_href, sizeof(__pyx_k_href), 0, 0, 1, 1},
   {&__pyx_n_s_hrefs, __pyx_k_hrefs, sizeof(__pyx_k_hrefs), 0, 0, 1, 1},
   {&__pyx_kp_u_html, __pyx_k_html, sizeof(__pyx_k_html), 0, 1, 0, 0},
-  {&__pyx_kp_u_html_parser, __pyx_k_html_parser, sizeof(__pyx_k_html_parser), 0, 1, 0, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_kp_u_javascript_carInfo, __pyx_k_javascript_carInfo, sizeof(__pyx_k_javascript_carInfo), 0, 1, 0, 0},
   {&__pyx_kp_u_javascript_carInfo_2, __pyx_k_javascript_carInfo_2, sizeof(__pyx_k_javascript_carInfo_2), 0, 1, 0, 0},
@@ -2246,6 +2245,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_links, __pyx_k_links, sizeof(__pyx_k_links), 0, 0, 1, 1},
   {&__pyx_kp_u_links_aj_json, __pyx_k_links_aj_json, sizeof(__pyx_k_links_aj_json), 0, 1, 0, 0},
   {&__pyx_n_s_listdir, __pyx_k_listdir, sizeof(__pyx_k_listdir), 0, 0, 1, 1},
+  {&__pyx_n_u_lxml, __pyx_k_lxml, sizeof(__pyx_k_lxml), 0, 1, 0, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_u_onclick, __pyx_k_onclick, sizeof(__pyx_k_onclick), 0, 1, 0, 1},
@@ -2275,7 +2275,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "cparse_pages_list_aj.pyx":14
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  *             hrefs = [a.get('onclick') for a in soup.findAll('a')]
  *             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]             # <<<<<<<<<<<<<<
  *             for href in hrefs:
@@ -2293,7 +2293,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
  *         with open(path, 'r') as f:             # <<<<<<<<<<<<<<
  *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'html.parser')
+ *             soup = BeautifulSoup(contents, 'lxml')
  */
   __pyx_tuple__5 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);

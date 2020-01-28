@@ -10,7 +10,7 @@ def run():
     for path in [os.path.join(froot, f) for f in os.listdir(froot) if '.html' in f]:
         with open(path, 'r') as f:
             contents = f.read()
-            soup = BeautifulSoup(contents, 'html.parser')
+            soup = BeautifulSoup(contents, 'lxml')
             hrefs = [a.get('href') for a in soup.findAll('a')]
             hrefs = [f'{root}{h}' for h in hrefs if h and 'cardetailview' in h]
             for href in hrefs:
