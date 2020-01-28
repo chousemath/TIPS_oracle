@@ -3,7 +3,7 @@
  * The purpose of this script is to scrape all the detail page links for
  * the encar.com, foreign car platform.
  * Only the links (not the details on the details page) are scraped using this script
- * Last update 2019/01/28, Joseph Sungpil Choi
+ * Last update 2020/01/28, Joseph Sungpil Choi
 */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
