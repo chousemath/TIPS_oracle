@@ -6,6 +6,8 @@ mypy cparse_pages_list.pyx
 mypy cparse_pages_list_aj.pyx
 mypy cparse_pages_list_encar_domestic.pyx
 mypy cparse_pages_list_mpark.pyx
+mypy cdecompose.pyx
+
 mypy \
     decompose.py \
     parse_pages_list.py \

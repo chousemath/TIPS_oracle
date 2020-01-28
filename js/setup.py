@@ -7,6 +7,7 @@ mods: List[str] = [
     'cparse_pages_list_mpark.pyx',
     'cparse_pages_list_aj.pyx',
     'cparse_pages_list_encar_domestic.pyx',
+    'cdecompose.pyx',
 ]
 for mod in mods:
     setup(ext_modules=cythonize(
