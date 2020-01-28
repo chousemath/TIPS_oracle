@@ -9,8 +9,7 @@ import re
 from time import time
 
 
-def encar_certified_vehicle(bs_obj, timeStamp):
-
+def encar_certified_vehicle(bs_obj, timestamp):
     brand = bs_obj.find("span", {"class": "brand"}).text
     model = bs_obj.find("span", {"class": "detail"}).text.strip()
 
@@ -56,12 +55,12 @@ def encar_certified_vehicle(bs_obj, timeStamp):
             checked_options_list.append(item_text)
     # print(checked_options_list)
 
-    write.writerow([timeStamp, brand+model, mileage, color,
+    write.writerow([timestamp, brand+model, mileage, color,
                     transmission, car_number, oil, checked_options_list])
     return
 
 
-def encar_vehicle(bs_obj, timeStamp):
+def encar_vehicle(bs_obj, timestamp):
 
     brand = bs_obj.find("span", {"class": "brand"}).text.strip()
     model = bs_obj.find("span", {"class": "detail"}).text.strip()
@@ -103,7 +102,7 @@ def encar_vehicle(bs_obj, timeStamp):
     cut_string_1 = year.replace("자세히보기", "")
     cut_string_2 = cut_string_1.replace("연식:", "")
     print(cut_string_2.strip())
-    write.writerow([timeStamp, brand+model, mileage, color,
+    write.writerow([timestamp, brand+model, mileage, color,
                     transmission, car_number, oil, checked_options_list])
 
     return
@@ -116,11 +115,12 @@ fname = f'encar-{int(time())}.csv'
 with open(os.path.join(_to, fname), 'w', encoding='utf-8', newline='') as csv_file:
     write = csv.writer(csv_file)
     for file in [os.path.join(_from, f) for f in os.listdir(_from) if f.endswith('.html')]:
+        print(file)
         with codecs.open(file, 'r', 'utf-8') as f:
             bs_obj = BeautifulSoup(f.read(), 'html.parser')
             checked_vehicle = bs_obj.find('em', {'class': 'ass'})
-            timeStamp = file.split('-')[0][0:-3]
+            timestamp = file.split('-')[0][0:-3]
             if checked_vehicle is not None:
-                encar_certified_vehicle(bs_obj, timeStamp)
+                encar_certified_vehicle(bs_obj, timestamp)
             else:
-                encar_vehicle(bs_obj, timeStamp)
+                encar_vehicle(bs_obj, timestamp)
