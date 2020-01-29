@@ -33,8 +33,8 @@ df[1] = df[1].map(clean_registered_at)
 df[3] = df[3].map(clean_mileage)
 df[7] = df[7].map(clean_color)
 df[9] = df[9].map(clean_price)
-df = df.drop_duplicates(subset=[0])
-print(df.head())
+df_aj = df.drop_duplicates(subset=[0])
+print(df_aj.head())
 
 # organize cars by plate number
 #for plate_num in df[0].unique():

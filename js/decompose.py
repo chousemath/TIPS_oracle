@@ -10,6 +10,7 @@ routes: List[Route] = [
     ('pages_detail_encar_domestic', 'html_src_encar'),
     ('pages_detail_mpark', 'html_src_mpark'),
     ('pages_detail_aj', 'html_src_aj'),
+    ('encar_accident_reports', 'html_src_encar_accidents'),
 ]
 shuffle(routes)
 
