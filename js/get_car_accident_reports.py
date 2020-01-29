@@ -1,16 +1,15 @@
 import requests
 from os import path
+from random import shuffle
 
 root = 'http://www.encar.com'
 links = {}
 
 def run():
     with open('./car_ids.txt', 'r') as f:
-        while True:
-            line = f.readline()
-            if not line:
-                break
-            line = line.strip()
+        lines = [x.strip() for x in f.readlines()]
+        shuffle(lines)
+        for line in lines:
             if len(line) != 24:
                 continue
             line = line.replace('carid=', '').replace('carType=', '')
