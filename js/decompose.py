@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from cdecompose import decompose
 from random import shuffle
+from time import sleep
 
 Route = Tuple[str, str]
 
@@ -16,4 +17,5 @@ if __name__ == '__main__':
     while True:
         for route in routes:
             decompose(route)
+            sleep(5)
         print('Finished with a round of decomposition')
