@@ -2,6 +2,7 @@ node_modules
 *.env
 bigquery-key.json
 *.html
+*.csv
 *.zip
 js/csv_aj
 js/csv_aj/*
