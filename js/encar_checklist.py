@@ -23,7 +23,7 @@ def encar_checklist(bs_obj: Type[BeautifulSoup], carid: str) -> List:
     for tr in trs:
         if (item := tr.find('th')) is not None:
             if '사고이력' in item.text and (accident_item := tr.find('span', {'class': 'txt_state on'})) is not None:
-                return [carid, acc_map.get(accident_item.text, 3), 0]
+                return [carid, acc_map.get(accident_item.text, 3), car_no]
     return []
 
 
@@ -31,7 +31,7 @@ def encar_checklist_img(table: Type[BeautifulSoup], carid: str) -> List:
     tbody = table.find('tbody')
     trs = tbody.find('tr')
     tds = trs.findAll('td')
-    return [carid, acc_map.get(tds[0].text, 3), 0]
+    return [carid, acc_map.get(tds[0].text, 3), '']
 
 
 if __name__ == '__main__':
