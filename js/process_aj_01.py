@@ -27,14 +27,38 @@ def clean_registered_at(in_val: str) -> str:
 root = 'csv_aj'
 latest = sorted([x for x in listdir(root) if '.csv' in x])[-1]
 df = pd.read_csv(path.join(root, latest))
-df = df.drop(df.columns[[1, 3, 10, 11, 12, 13, 15]], axis=1)
-df.columns = list(range(len(df.columns)))
-df[1] = df[1].map(clean_registered_at)
-df[3] = df[3].map(clean_mileage)
-df[7] = df[7].map(clean_color)
-df[9] = df[9].map(clean_price)
-df_aj = df.drop_duplicates(subset=[0])
-print(df_aj.head())
+df = df.drop(df.columns[[3, 10, 11, 12, 13, 15]], axis=1)
+columns = list(range(len(df.columns)))
+df.columns = [
+    'plate',
+    'vin',
+    'registered',
+    'fuel',
+    'mileage',
+    'displacement',
+    'category',
+    'transmission',
+    'color',
+    'title',
+    'price',
+]
+df.registered = df.registered.map(clean_registered_at)
+df.mileage = df.mileage.map(clean_mileage)
+df.color = df.color.map(clean_color)
+df.price = df.price.map(clean_price)
+df = df.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
+df = df[(df.registered != '') & (df.price > 0)]
+df_aj = df.drop_duplicates(subset='vin', keep='last', inplace=False)
+#print(df_aj.head())
+#print(len(df_aj.index))
+fuels = [(x, len(df_aj[df_aj.fuel == x].index)) for x in df_aj.fuel.unique()]
+categories = [(x, len(df_aj[df_aj.category == x].index)) for x in df_aj.category.unique()]
+transmissions = [(x, len(df_aj[df_aj.transmission == x].index)) for x in df_aj.transmission.unique()]
+colors = [(x, len(df_aj[df_aj.color == x])) for x in df_aj.color.unique()]
+titles = [(x, len(df_aj[df_aj.title == x])) for x in df_aj.title.unique()]
+print(fuels)
+print(categories)
+print(transmissions)
 
 # organize cars by plate number
 #for plate_num in df[0].unique():
