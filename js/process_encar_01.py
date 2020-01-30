@@ -49,17 +49,18 @@ latest = sorted([x for x in listdir(root) if '.csv' in x])[-1]
 df = pd.read_csv(path.join(root, latest)).dropna()
 df = df.drop(df.columns[[0, -1]], axis=1)
 df.columns = ['title', 'plate', 'price', 'mileage', 'color', 'model_year', 'registered', 'fuel', 'transmission']
-df_aj = df.drop_duplicates(subset='plate', keep='last', inplace=False)
-df.title = df.title.map(clean_title)
-df.plate = df.plate.map(clean_plate)
-df.price = df.price.map(clean_price)
-df.mileage = df.mileage.map(clean_mileage)
-df.color = df.color.map(clean_color)
-df.model_year = df.model_year.map(clean_model_year)
-df.registered = df.registered.map(clean_registered)
-df.fuel = df.fuel.map(clean_fuel)
-df.transmission = df.transmission.map(clean_transmission)
-df_encar = df[(df.plate != '') & (df.price > 0)]
+
+df_encar = df.drop_duplicates(subset='plate', keep='last', inplace=False)
+df_encar.title = df_encar.title.map(clean_title)
+df_encar.plate = df_encar.plate.map(clean_plate)
+df_encar.price = df_encar.price.map(clean_price)
+df_encar.mileage = df_encar.mileage.map(clean_mileage)
+df_encar.color = df_encar.color.map(clean_color)
+df_encar.model_year = df_encar.model_year.map(clean_model_year)
+df_encar.registered = df_encar.registered.map(clean_registered)
+df_encar.fuel = df_encar.fuel.map(clean_fuel)
+df_encar.transmission = df_encar.transmission.map(clean_transmission)
+df_encar = df_encar[(df_encar.plate != '') & (df_encar.price > 0)]
 fuels = [(norm(x), len(df_encar[df_encar.fuel == x].index)) for x in df_encar.fuel.unique()]
 transmissions = [(norm(x), len(df_encar[df_encar.transmission == x].index))
                  for x in df_encar.transmission.unique()]
