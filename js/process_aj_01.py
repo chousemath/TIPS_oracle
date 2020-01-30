@@ -1,6 +1,13 @@
 from typing import List, Sequence, Tuple, Dict
 import pandas as pd
 from os import listdir, path
+import json
+import unicodedata as ud
+import io
+from operator import itemgetter
+
+def norm(input: str) -> str:
+    return ud.normalize('NFC', input)
 
 
 def clean_price(in_val: str) -> int:
@@ -67,13 +74,20 @@ df.price = df.price.map(clean_price)
 df = df.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
 df = df[(df.registered != '') & (df.price > 0)]
 df_aj = df.drop_duplicates(subset='vin', keep='last', inplace=False)
-fuels = [(x, len(df_aj[df_aj.fuel == x].index)) for x in df_aj.fuel.unique()]
-categories = [(x, len(df_aj[df_aj.category == x].index))
+fuels = [(norm(x), len(df_aj[df_aj.fuel == x].index)) for x in df_aj.fuel.unique()]
+categories = [(norm(x), len(df_aj[df_aj.category == x].index))
               for x in df_aj.category.unique()]
-transmissions = [(x, len(df_aj[df_aj.transmission == x].index))
+transmissions = [(norm(x), len(df_aj[df_aj.transmission == x].index))
                  for x in df_aj.transmission.unique()]
-colors = [(x, len(df_aj[df_aj.color == x])) for x in df_aj.color.unique()]
-titles = [(x, len(df_aj[df_aj.title == x])) for x in df_aj.title.unique()]
+colors = [(norm(x), len(df_aj[df_aj.color == x])) for x in df_aj.color.unique()]
+titles = [(norm(x), len(df_aj[df_aj.title == x])) for x in df_aj.title.unique()]
+
+fuels.sort(key=itemgetter(1), reverse=True)
+categories.sort(key=itemgetter(1), reverse=True)
+transmissions.sort(key=itemgetter(1), reverse=True)
+colors.sort(key=itemgetter(1), reverse=True)
+titles.sort(key=itemgetter(1), reverse=True)
+
 output = {
     'fuels': format_chartjs(fuels),
     'categories': format_chartjs(categories),
@@ -81,3 +95,7 @@ output = {
     'colors': format_chartjs(colors),
     'titles': format_chartjs(titles),
 }
+
+with io.open(path.join('..', 'overview_aj.json'), 'w', encoding='utf-8') as f:
+    f.write(json.dumps(output, ensure_ascii=False))
+
