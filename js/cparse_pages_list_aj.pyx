@@ -14,7 +14,7 @@ def run():
             hrefs = [h.replace("javascript:carInfo('", '').replace("');", '') for h in hrefs if h and 'javascript:carInfo(' in h]
             for href in hrefs:
                 links[href] = True
-            os.remove(path)
+            #os.remove(path)
     
     with open('links_aj.json', 'w') as json_file:
         json.dump(links, json_file)

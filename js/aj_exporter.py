@@ -38,7 +38,7 @@ if __name__ == '__main__':
                     if '편의' in table.text:
                         inps_arr: List[str] = [x.get('title', '') for x in table.find_all(
                             'input', class_='inpu_chek') if x.get('checked') == 'checked']
-                        inps: str = '///'.join(inps)
+                        inps: str = '///'.join(inps_arr)
                 price = soup.find('strong', class_='i_comm_main_txt2').text
                 data.append(inps)
                 data.append(price)

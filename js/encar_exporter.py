@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from typing import Type, List
 import sys
 from bs4 import BeautifulSoup
 import codecs
@@ -9,9 +10,13 @@ import re
 from time import time
 
 
-def encar_certified_vehicle(bs_obj, timestamp):
-    brand = ''
-    model = ''
+def encar_certified_vehicle(bs_obj: Type[BeautifulSoup], timestamp: str, carid: str) -> List[str]:
+    """Extract car details from a certified encar vehicle page"""
+    elem_brand = bs_obj.find('span', {'class': 'brand'})
+    brand = elem_brand.text.strip() if elem_brand else ''
+    elem_model = bs_obj.find('span', {'class': 'detail'})
+    model = elem_model.text.strip() if elem_model else ''
+
     mileage = ''
     color = ''
     transmission = ''
@@ -19,57 +24,46 @@ def encar_certified_vehicle(bs_obj, timestamp):
     fuel = ''
     model_year = ''
     price = ''
-    checked_options_list = []
     registered_at = ''
 
-    if bs_obj.find("span", {"class": "brand"}) is not None:
-        brand = bs_obj.find("span", {"class": "brand"}).text
-    if bs_obj.find("span", {"class": "detail"}) is not None:
-        model = bs_obj.find("span", {"class": "detail"}).text.strip()
-    if bs_obj.find("ul", {"class": "list_carinfo"}) is not None:
-        car_info = bs_obj.find("ul", {"class": "list_carinfo"})
-        lis = car_info.findAll("li")
-        color = lis[6].text.replace("색상:", "")
-        _mileage = lis[0].text.replace("주행거리:", "")
+    if (car_info := bs_obj.find('ul', {'class': 'list_carinfo'})) is not None:
+        lis = car_info.findAll('li')
+        color = lis[6].text.replace('색상:', '').strip()
+        _mileage = lis[0].text.replace('주행거리:', '')
         mileage = re.sub('[-=.#,/?:$}Kkm]', '', _mileage).strip()
         yearString = lis[1].text.strip()
-        cut_string_1 = yearString.replace("자세히보기", "").strip()
-        cut_string_2 = cut_string_1.replace("연식:", "").strip()
-        cut_string_3 = cut_string_2.replace("년 ", ".")
-        registered_at = "20"+cut_string_3.replace("월식", "")
+        cut_string_1 = yearString.replace('자세히보기', '').strip()
+        cut_string_2 = cut_string_1.replace('연식:', '').strip()
+        cut_string_3 = cut_string_2.replace('년 ', '.')
+        registered_at = '20'+cut_string_3.replace('월식', '')
 
-        if "(" in registered_at:
-            model_year = "20"+re.sub('[(년형)]', '', registered_at)[-2:]
+        if '(' in registered_at:
+            model_year = '20'+re.sub('[(년형)]', '', registered_at)[-2:]
             registered_at = registered_at[:7]
         else:
             model_year = registered_at[:4]
 
-        transmission = lis[5].text.replace("변속기:", "").strip()
-        fuel = lis[2].text.replace("연료:", "").strip()
-    if bs_obj.find("div", {"id": "area_options view"}) is not None:
-        car_options = bs_obj.find("div", {"id": "area_options view"})
-    if bs_obj.findAll("dd", {"class": "on"}) is not None:
-        checked_options = bs_obj.findAll("dd", {"class": "on"})
-    if bs_obj.find("strong", {"class", "tit_inspect"}) is not None:
-        _accident = bs_obj.find("strong", {"class", "tit_inspect"})
-        accident = _accident.find("em", {"class", "emph_g"}).text
+        transmission = lis[5].text.replace('변속기:', '').strip()
+        fuel = lis[2].text.replace('연료:', '').strip()
+
+    checked_options = bs_obj.findAll('dd', {'class': 'on'})
+    elem_accident = bs_obj.find('strong', {'class', 'tit_inspect'})
+    accident = elem_accident.text.strip() if elem_accident else ''
     if lis[7] is not None:
-        car_number = lis[7].text.replace("차량번호", "").replace(" ", "").strip()
-    if bs_obj.find("em", {"class", "emph_price"}) is not None:
-        _price = bs_obj.find("em", {"class", "emph_price"})
+        car_number = lis[7].text.replace('차량번호', '').replace(' ', '').strip()
+    if (_price := bs_obj.find('em', {'class', 'emph_price'})) is not None:
         price = _price.find(
-            "span", {"class", "txt_num"}).text.replace(",", "").strip()
+            'span', {'class', 'txt_num'}).text.replace(',', '').strip()
 
-    for option_item in checked_options:
-        item = option_item.find("a")
-        if item is not None:
-            item_text = item.text.strip()
-            checked_options_list.append(item_text)
-    return [timeStamp, brand+model, car_number, price, mileage, color, model_year, registered_at, fuel, transmission, checked_options_list]
+    _options = [x.find('a') for x in checked_options]
+    options: str = '///'.join([x.text.strip() for x in _options if x])
+    output = [carid, timestamp, brand+model, car_number, price, mileage,
+              color, model_year, registered_at, fuel, transmission, options]
+    print(output)
+    return output
 
 
-def encar_vehicle(bs_obj, timeStamp):
-    # brand, model, mileage, color, transmission, car_number, fuel = ''
+def encar_vehicle(bs_obj, timestamp, carid):
     brand = ''
     model = ''
     mileage = ''
@@ -126,7 +120,7 @@ def encar_vehicle(bs_obj, timeStamp):
                 "span", {"class", "t"}).text.replace("자세히보기", "").strip()
             if item == "사고이력":
                 accident = result_item.find("dd", {"id", "txtInspAcc"})
-    return [timeStamp, brand+model, car_number, price, mileage, color, model_year, registered_at, fuel, transmission, checked_options_list]
+    return [carid, timestamp, brand+model, car_number, price, mileage, color, model_year, registered_at, fuel, transmission, checked_options_list]
 
 
 _from = sys.argv[1]  # source directory for html files
@@ -138,10 +132,13 @@ with open(os.path.join(_to, fname), 'w', encoding='utf-8', newline='') as csv_fi
     for file in [os.path.join(_from, f) for f in os.listdir(_from) if f.endswith('.html')]:
         with codecs.open(file, 'r', 'utf-8') as f:
             bs_obj = BeautifulSoup(f.read(), 'lxml')
-            checked_vehicle = bs_obj.find('em', {'class': 'ass'})
-            timeStamp = file.split('-')[0][0:-3]
-            if checked_vehicle is not None:
-                write.writerow(encar_certified_vehicle(bs_obj, timeStamp))
-
+            timestamp = file.split('-')[0][0:-3][-10:]
+            if (elem_carid := bs_obj.find('input', id='rgsid')) is None:
+                continue
+            carid = elem_carid.get('value')
+            print('carid:', carid)
+            if bs_obj.find('em', {'class': 'ass'}):
+                write.writerow(encar_certified_vehicle(
+                    bs_obj, timestamp, carid))
             else:
-                write.writerow(encar_vehicle(bs_obj, timeStamp))
+                write.writerow(encar_vehicle(bs_obj, timestamp, carid))
