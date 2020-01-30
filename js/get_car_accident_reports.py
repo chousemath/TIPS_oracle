@@ -6,6 +6,7 @@ from time import sleep
 root = 'http://www.encar.com'
 links = {}
 
+
 def run():
     while True:
         try:
@@ -32,5 +33,6 @@ def run():
             print(str(e))
         finally:
             sleep(5)
-    
+
+
 run()
