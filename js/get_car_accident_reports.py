@@ -34,5 +34,5 @@ def run():
         finally:
             sleep(5)
 
-
-run()
+if __name__ == '__main__':
+    run()

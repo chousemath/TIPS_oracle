@@ -81,12 +81,14 @@ transmissions = [(norm(x), len(df_aj[df_aj.transmission == x].index))
                  for x in df_aj.transmission.unique()]
 colors = [(norm(x), len(df_aj[df_aj.color == x])) for x in df_aj.color.unique()]
 titles = [(norm(x), len(df_aj[df_aj.title == x])) for x in df_aj.title.unique()]
+registereds = [(norm(x), len(df_aj[df_aj.registered == x])) for x in df_aj.registered.unique()]
 
 fuels.sort(key=itemgetter(1), reverse=True)
 categories.sort(key=itemgetter(1), reverse=True)
 transmissions.sort(key=itemgetter(1), reverse=True)
 colors.sort(key=itemgetter(1), reverse=True)
 titles.sort(key=itemgetter(1), reverse=True)
+registereds.sort(key=itemgetter(1), reverse=True)
 
 output = {
     'fuels': format_chartjs(fuels),
@@ -94,6 +96,7 @@ output = {
     'transmissions': format_chartjs(transmissions),
     'colors': format_chartjs(colors),
     'titles': format_chartjs(titles),
+    'registereds': format_chartjs(registereds),
 }
 
 with io.open(path.join('..', 'overview_aj.json'), 'w', encoding='utf-8') as f:
