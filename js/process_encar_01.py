@@ -47,8 +47,8 @@ def format_chartjs(in_val: Sequence[Tuple[str, int]]) -> Dict:
 root = 'csv_encar'
 latest = sorted([x for x in listdir(root) if '.csv' in x])[-1]
 df = pd.read_csv(path.join(root, latest)).dropna()
-df = df.drop(df.columns[[0, -1]], axis=1)
-df.columns = ['title', 'plate', 'price', 'mileage', 'color', 'model_year', 'registered', 'fuel', 'transmission']
+#df = df.drop(df.columns[[0, -1]], axis=1)
+df.columns = ['car_id', 'timestamp', 'title', 'plate', 'price', 'mileage', 'color', 'model_year', 'registered', 'fuel', 'transmission', 'options', 'accident']
 
 df_encar = df.drop_duplicates(subset='plate', keep='last', inplace=False)
 df_encar.title = df_encar.title.map(clean_title)
