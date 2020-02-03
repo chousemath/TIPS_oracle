@@ -11,10 +11,9 @@ const pageLimit = 500; // conservative page limit
 declare var commitLogin: any;
 // function for advancing the list page
 declare var goPageSubmit: any;
-declare var carmangerDetailWindowPopUp: any;
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer.launch({headless: false, args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
     try {
         const page = await browser.newPage();
         await page.setViewport({ width: 1366, height: 768});
@@ -33,19 +32,18 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
             console.log(link);
             try {
                 //await page.goto(link, { waitUntil: 'networkidle2' });
+                const newPagePromise = new Promise(x => browser.once('targetcreated', target => x(target.page())));
                 await page.evaluate((x) => {
-                    carmangerDetailWindowPopUp(x,'','', '', '', 2013.11, 104917, 1230)
+                    eval(x);
                 }, link);
-                const pages = await browser.pages();
-                const popup = pages[pages.length - 1];
-                await sleep(5000);
-                const html = await popup.content();
+                const newPage: any = await newPagePromise;
+                await sleep(2000);
+                const html = await newPage.content();
                 const name = `${(new Date()).valueOf()}-${Math.floor(100000000 * Math.random())}.html`
                 await fs.writeFile(path.join(__dirname, 'pages_detail_carmanager', name), html, (err) => {
                     if (err) console.log(err);
                 });
-                await popup.close();
-                await sleep(5000);
+                await newPage.close();
             } catch(e) {
                 console.log(e);
             }

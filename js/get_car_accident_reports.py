@@ -17,8 +17,9 @@ def run():
                     if len(line) != 24:
                         continue
                     line = line.replace('carid=', '').replace('carType=', '')
-                    car_id, car_type = line.split('&')
-                    print(car_id, car_type)
+                    vals = line.split('&')
+                    car_id = vals[0]
+                    car_type = vals[1]
                     dst = path.join('encar_accident_reports', f'{car_id}.html')
                     if path.isfile(dst):
                         continue
