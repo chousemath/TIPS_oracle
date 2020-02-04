@@ -61,7 +61,7 @@ def get_check(is_certified: bool, tables: Dict):
 
 
 def export_csv(_from: str, _to: str):
-    file_list = os.listdir(_from)
+    file_list = [x for x in os.listdir(_from) if '.html' in x]
     results = []  # csv 파일로 출력할 배열. (차량을 파싱한 데이터)
     for html in file_list:
         with open(_from+'/'+html) as fp:
