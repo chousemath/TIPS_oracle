@@ -66,7 +66,6 @@ def encar_certified_vehicle(bs_obj: Type[BeautifulSoup], timestamp: str, carid: 
 
 
 def encar_vehicle(bs_obj: Type[BeautifulSoup], timestamp: str, carid: str) -> List[str]:
-
     mileage = ''
     color = ''
     transmission = ''
