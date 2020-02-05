@@ -7,6 +7,8 @@ mods: List[str] = [
     'cparse_pages_list_mpark.pyx',
     'cparse_pages_list_aj.pyx',
     'cparse_pages_list_encar_domestic.pyx',
+    'cparse_pages_list_autoinside.pyx',
+    'cparse_pages_detail_autoinside.pyx',
     'cdecompose.pyx',
 ]
 for mod in mods:
