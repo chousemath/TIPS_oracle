@@ -4,6 +4,7 @@ from os import path
 from random import shuffle
 from time import sleep
 
+
 def run():
     while True:
         try:
@@ -22,6 +23,7 @@ def run():
             print(str(e))
         finally:
             sleep(5)
+
 
 if __name__ == '__main__':
     run()

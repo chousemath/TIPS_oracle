@@ -16,4 +16,3 @@ with open('carmanager_links.txt', 'r') as f:
             print(str(e))
     with io.open('carmanager_links.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(data, ensure_ascii=False))
-
