@@ -8,19 +8,22 @@ def md5(fname: str) -> str:
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
 
-for root in [x for x in listdir('.') if path.isdir(x)]:
-    print(f'Searching through {root}')
-    m5_map = {}
-    total = 0
-    duplicates = 0
-    for fpath in [path.join(root, x) for x in listdir(root) if '.html' in x]:
-        total += 1
-        m5 = md5(fpath)
-        if m5_map.get(m5) is None:
-            m5_map[m5] = True
-        else:
-            duplicates += 1
-            remove(fpath)
-    
-    print(f'total: {total}, duplicates: {duplicates}\n\n')
-
+while True:
+    for root in [x for x in listdir('.') if path.isdir(x)]:
+        try:
+            print(f'Searching through {root}')
+            m5_map = {}
+            total = 0
+            duplicates = 0
+            for fpath in [path.join(root, x) for x in listdir(root) if '.html' in x]:
+                total += 1
+                m5 = md5(fpath)
+                if m5_map.get(m5) is None:
+                    m5_map[m5] = True
+                else:
+                    duplicates += 1
+                    remove(fpath)
+            
+            print(f'total: {total}, duplicates: {duplicates}\n\n')
+        except Exception as e:
+            print(str(e))
