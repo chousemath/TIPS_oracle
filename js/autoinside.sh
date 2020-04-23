@@ -21,7 +21,10 @@ set -o nounset                              # Treat unset variables as an error
 
 while true
 do
-    node autoinside_detail.js && node autoinside_accident.js
+    node autoinside.js 
+    python parse_pages_list_autoinside.py 
+    node autoinside_detail.js 
+    node autoinside_accident.js
 done
 
 

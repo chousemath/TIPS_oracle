@@ -21,6 +21,8 @@ set -o nounset                              # Treat unset variables as an error
 
 while true
 do
+    node aj.js 
+    python parse_pages_list_aj.py 
     node aj_detail.js
 done
 

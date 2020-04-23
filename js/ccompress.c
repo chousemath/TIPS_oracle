@@ -825,7 +825,7 @@ struct __pyx_obj_9ccompress___pyx_scope_struct_1_genexpr;
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
 struct __pyx_obj_9ccompress___pyx_scope_struct__compress {
   PyObject_HEAD
@@ -837,8 +837,8 @@ struct __pyx_obj_9ccompress___pyx_scope_struct__compress {
  * 
  * def compress(route: str):
  *     for fname in (x for x in listdir(route) if '.html' in x):             # <<<<<<<<<<<<<<
- *         src_path = path.join(route, fname)
- *         print(src_path)
+ *         try:
+ *             src_path = path.join(route, fname)
  */
 struct __pyx_obj_9ccompress___pyx_scope_struct_1_genexpr {
   PyObject_HEAD
@@ -1127,6 +1127,22 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
 #endif
 
+/* PyErrExceptionMatches.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err);
+#else
+#define __Pyx_PyErr_ExceptionMatches(err)  PyErr_ExceptionMatches(err)
+#endif
+
+/* SwapException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_ExceptionSwap(type, value, tb)  __Pyx__ExceptionSwap(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#else
+static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
+#endif
+
 /* IncludeStringH.proto */
 #include <string.h>
 
@@ -1196,14 +1212,6 @@ static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
-
-/* SwapException.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_ExceptionSwap(type, value, tb)  __Pyx__ExceptionSwap(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#else
-static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
-#endif
 
 /* PyObjectGetMethod.proto */
 static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method);
@@ -1303,15 +1311,22 @@ int __pyx_module_is_main_ccompress = 0;
 /* Implementation of 'ccompress' */
 static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_open;
+static const char __pyx_k_e[] = "e";
 static const char __pyx_k_f[] = "f";
 static const char __pyx_k_r[] = "r";
 static const char __pyx_k_w[] = "w";
+static const char __pyx_k__2[] = "\n";
+static const char __pyx_k__3[] = "";
+static const char __pyx_k__4[] = "\r";
+static const char __pyx_k__5[] = "  ";
 static const char __pyx_k_os[] = "os";
 static const char __pyx_k_bs4[] = "bs4";
+static const char __pyx_k_tag[] = "tag";
 static const char __pyx_k_args[] = "args";
 static const char __pyx_k_exit[] = "__exit__";
 static const char __pyx_k_html[] = ".html";
 static const char __pyx_k_join[] = "join";
+static const char __pyx_k_link[] = "link";
 static const char __pyx_k_lxml[] = "lxml";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
@@ -1326,6 +1341,7 @@ static const char __pyx_k_enter[] = "__enter__";
 static const char __pyx_k_fname[] = "fname";
 static const char __pyx_k_print[] = "print";
 static const char __pyx_k_route[] = "route";
+static const char __pyx_k_style[] = "style";
 static const char __pyx_k_throw[] = "throw";
 static const char __pyx_k_write[] = "write";
 static const char __pyx_k_import[] = "__import__";
@@ -1335,8 +1351,11 @@ static const char __pyx_k_htmlmin[] = "htmlmin";
 static const char __pyx_k_listdir[] = "listdir";
 static const char __pyx_k_compress[] = "compress";
 static const char __pyx_k_contents[] = "contents";
+static const char __pyx_k_find_all[] = "find_all";
 static const char __pyx_k_src_path[] = "src_path";
+static const char __pyx_k_attribute[] = "attribute";
 static const char __pyx_k_ccompress[] = "ccompress";
+static const char __pyx_k_decompose[] = "decompose";
 static const char __pyx_k_BeautifulSoup[] = "BeautifulSoup";
 static const char __pyx_k_ccompress_pyx[] = "ccompress.pyx";
 static const char __pyx_k_remove_comments[] = "remove_comments";
@@ -1344,7 +1363,12 @@ static const char __pyx_k_convert_charrefs[] = "convert_charrefs";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_compress_locals_genexpr[] = "compress.<locals>.genexpr";
 static PyObject *__pyx_n_s_BeautifulSoup;
+static PyObject *__pyx_kp_u__2;
+static PyObject *__pyx_kp_u__3;
+static PyObject *__pyx_kp_u__4;
+static PyObject *__pyx_kp_u__5;
 static PyObject *__pyx_n_s_args;
+static PyObject *__pyx_n_s_attribute;
 static PyObject *__pyx_n_s_bs4;
 static PyObject *__pyx_n_s_ccompress;
 static PyObject *__pyx_kp_s_ccompress_pyx;
@@ -1354,15 +1378,20 @@ static PyObject *__pyx_n_s_compress;
 static PyObject *__pyx_n_s_compress_locals_genexpr;
 static PyObject *__pyx_n_s_contents;
 static PyObject *__pyx_n_s_convert_charrefs;
+static PyObject *__pyx_n_s_decompose;
+static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_enter;
 static PyObject *__pyx_n_s_exit;
 static PyObject *__pyx_n_s_f;
+static PyObject *__pyx_n_s_find_all;
 static PyObject *__pyx_n_s_fname;
 static PyObject *__pyx_n_s_genexpr;
 static PyObject *__pyx_kp_u_html;
 static PyObject *__pyx_n_s_htmlmin;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_join;
+static PyObject *__pyx_n_s_link;
+static PyObject *__pyx_n_u_link;
 static PyObject *__pyx_n_s_listdir;
 static PyObject *__pyx_n_u_lxml;
 static PyObject *__pyx_n_s_main;
@@ -1379,6 +1408,9 @@ static PyObject *__pyx_n_s_route;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_soup;
 static PyObject *__pyx_n_s_src_path;
+static PyObject *__pyx_n_s_style;
+static PyObject *__pyx_n_u_style;
+static PyObject *__pyx_n_s_tag;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_u_w;
@@ -1388,8 +1420,9 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
 static PyObject *__pyx_tp_new_9ccompress___pyx_scope_struct__compress(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9ccompress___pyx_scope_struct_1_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_tuple__2;
-static PyObject *__pyx_codeobj__3;
+static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_tuple__7;
+static PyObject *__pyx_codeobj__8;
 /* Late includes */
 
 /* "ccompress.pyx":5
@@ -1397,7 +1430,7 @@ static PyObject *__pyx_codeobj__3;
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
 
 /* Python wrapper */
@@ -1424,8 +1457,8 @@ static PyObject *__pyx_gb_9ccompress_8compress_2generator(__pyx_CoroutineObject 
  * 
  * def compress(route: str):
  *     for fname in (x for x in listdir(route) if '.html' in x):             # <<<<<<<<<<<<<<
- *         src_path = path.join(route, fname)
- *         print(src_path)
+ *         try:
+ *             src_path = path.join(route, fname)
  */
 
 static PyObject *__pyx_pf_9ccompress_8compress_genexpr(PyObject *__pyx_self) {
@@ -1596,7 +1629,7 @@ static PyObject *__pyx_gb_9ccompress_8compress_2generator(__pyx_CoroutineObject 
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
 
 static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_route) {
@@ -1606,6 +1639,11 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
   PyObject *__pyx_v_f = NULL;
   PyObject *__pyx_v_contents = NULL;
   PyObject *__pyx_v_soup = NULL;
+  PyObject *__pyx_v_tag = NULL;
+  PyObject *__pyx_v_attribute = NULL;
+  PyObject *__pyx_v_style = NULL;
+  PyObject *__pyx_v_link = NULL;
+  PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1614,21 +1652,29 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
   PyObject *(*__pyx_t_4)(PyObject *);
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
+  PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
-  PyObject *__pyx_t_10 = NULL;
+  int __pyx_t_10;
   PyObject *__pyx_t_11 = NULL;
   PyObject *__pyx_t_12 = NULL;
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
   PyObject *__pyx_t_15 = NULL;
-  PyObject *__pyx_t_16 = NULL;
-  PyObject *__pyx_t_17 = NULL;
-  PyObject *__pyx_t_18 = NULL;
+  Py_ssize_t __pyx_t_16;
+  PyObject *(*__pyx_t_17)(PyObject *);
+  Py_ssize_t __pyx_t_18;
   PyObject *__pyx_t_19 = NULL;
-  int __pyx_t_20;
-  int __pyx_t_21;
+  PyObject *__pyx_t_20 = NULL;
+  PyObject *__pyx_t_21 = NULL;
+  PyObject *__pyx_t_22 = NULL;
+  PyObject *__pyx_t_23 = NULL;
+  PyObject *__pyx_t_24 = NULL;
+  PyObject *__pyx_t_25 = NULL;
+  int __pyx_t_26;
+  int __pyx_t_27;
+  int __pyx_t_28;
+  char const *__pyx_t_29;
   __Pyx_RefNannySetupContext("compress", 0);
   __pyx_cur_scope = (struct __pyx_obj_9ccompress___pyx_scope_struct__compress *)__pyx_tp_new_9ccompress___pyx_scope_struct__compress(__pyx_ptype_9ccompress___pyx_scope_struct__compress, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
@@ -1646,8 +1692,8 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
  * 
  * def compress(route: str):
  *     for fname in (x for x in listdir(route) if '.html' in x):             # <<<<<<<<<<<<<<
- *         src_path = path.join(route, fname)
- *         print(src_path)
+ *         try:
+ *             src_path = path.join(route, fname)
  */
   __pyx_t_1 = __pyx_pf_9ccompress_8compress_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1697,480 +1743,956 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
     /* "ccompress.pyx":7
  * def compress(route: str):
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)             # <<<<<<<<<<<<<<
- *         print(src_path)
- *         with open(src_path, 'r') as f:
+ *         try:             # <<<<<<<<<<<<<<
+ *             src_path = path.join(route, fname)
+ *             print(src_path)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_path); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 7, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_join); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 7, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = NULL;
-    __pyx_t_7 = 0;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_6, function);
-        __pyx_t_7 = 1;
-      }
-    }
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_cur_scope->__pyx_v_route, __pyx_v_fname};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_cur_scope->__pyx_v_route, __pyx_v_fname};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
     {
-      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 7, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      if (__pyx_t_5) {
-        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
-      }
-      __Pyx_INCREF(__pyx_cur_scope->__pyx_v_route);
-      __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_route);
-      PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_cur_scope->__pyx_v_route);
-      __Pyx_INCREF(__pyx_v_fname);
-      __Pyx_GIVEREF(__pyx_v_fname);
-      PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_v_fname);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_src_path, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "ccompress.pyx":8
- *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
- *         print(src_path)             # <<<<<<<<<<<<<<
- *         with open(src_path, 'r') as f:
- *             contents = f.read()
- */
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_src_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "ccompress.pyx":9
- *         src_path = path.join(route, fname)
- *         print(src_path)
- *         with open(src_path, 'r') as f:             # <<<<<<<<<<<<<<
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')
- */
-    /*with:*/ {
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_INCREF(__pyx_v_src_path);
-      __Pyx_GIVEREF(__pyx_v_src_path);
-      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_src_path);
-      __Pyx_INCREF(__pyx_n_u_r);
-      __Pyx_GIVEREF(__pyx_n_u_r);
-      PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_u_r);
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 9, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_9 = __Pyx_PyObject_LookupSpecial(__pyx_t_6, __pyx_n_s_exit); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 9, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_8 = __Pyx_PyObject_LookupSpecial(__pyx_t_6, __pyx_n_s_enter); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 9, __pyx_L5_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_5 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_8);
-        if (likely(__pyx_t_5)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-          __Pyx_INCREF(__pyx_t_5);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_8, function);
-        }
-      }
-      __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
-      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L5_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __pyx_t_1;
-      __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_PyThreadState_declare
+      __Pyx_PyThreadState_assign
+      __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_6, &__pyx_t_7);
+      __Pyx_XGOTREF(__pyx_t_5);
+      __Pyx_XGOTREF(__pyx_t_6);
+      __Pyx_XGOTREF(__pyx_t_7);
       /*try:*/ {
-        {
-          __Pyx_PyThreadState_declare
-          __Pyx_PyThreadState_assign
-          __Pyx_ExceptionSave(&__pyx_t_10, &__pyx_t_11, &__pyx_t_12);
-          __Pyx_XGOTREF(__pyx_t_10);
-          __Pyx_XGOTREF(__pyx_t_11);
-          __Pyx_XGOTREF(__pyx_t_12);
-          /*try:*/ {
-            __Pyx_XDECREF_SET(__pyx_v_f, __pyx_t_8);
-            __pyx_t_8 = 0;
 
-            /* "ccompress.pyx":10
- *         print(src_path)
- *         with open(src_path, 'r') as f:
- *             contents = f.read()             # <<<<<<<<<<<<<<
- *             soup = BeautifulSoup(contents, 'lxml')
- *             with open(src_path, 'w') as f:
+        /* "ccompress.pyx":8
+ *     for fname in (x for x in listdir(route) if '.html' in x):
+ *         try:
+ *             src_path = path.join(route, fname)             # <<<<<<<<<<<<<<
+ *             print(src_path)
+ *             with open(src_path, 'r') as f:
  */
-            __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 10, __pyx_L11_error)
-            __Pyx_GOTREF(__pyx_t_6);
-            __pyx_t_1 = NULL;
-            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-              __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_6);
-              if (likely(__pyx_t_1)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-                __Pyx_INCREF(__pyx_t_1);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_6, function);
-              }
-            }
-            __pyx_t_8 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
-            __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 10, __pyx_L11_error)
-            __Pyx_GOTREF(__pyx_t_8);
-            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __Pyx_XDECREF_SET(__pyx_v_contents, __pyx_t_8);
-            __pyx_t_8 = 0;
-
-            /* "ccompress.pyx":11
- *         with open(src_path, 'r') as f:
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')             # <<<<<<<<<<<<<<
- *             with open(src_path, 'w') as f:
- *                 f.write(minify(str(soup), remove_comments=True, convert_charrefs=True))
- */
-            __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_BeautifulSoup); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 11, __pyx_L11_error)
-            __Pyx_GOTREF(__pyx_t_6);
-            __pyx_t_1 = NULL;
-            __pyx_t_7 = 0;
-            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-              __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_6);
-              if (likely(__pyx_t_1)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-                __Pyx_INCREF(__pyx_t_1);
-                __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_6, function);
-                __pyx_t_7 = 1;
-              }
-            }
-            #if CYTHON_FAST_PYCALL
-            if (PyFunction_Check(__pyx_t_6)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
-              __pyx_t_8 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 11, __pyx_L11_error)
-              __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-              __Pyx_GOTREF(__pyx_t_8);
-            } else
-            #endif
-            #if CYTHON_FAST_PYCCALL
-            if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-              PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
-              __pyx_t_8 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 11, __pyx_L11_error)
-              __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-              __Pyx_GOTREF(__pyx_t_8);
-            } else
-            #endif
-            {
-              __pyx_t_5 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 11, __pyx_L11_error)
-              __Pyx_GOTREF(__pyx_t_5);
-              if (__pyx_t_1) {
-                __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1); __pyx_t_1 = NULL;
-              }
-              __Pyx_INCREF(__pyx_v_contents);
-              __Pyx_GIVEREF(__pyx_v_contents);
-              PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_7, __pyx_v_contents);
-              __Pyx_INCREF(__pyx_n_u_lxml);
-              __Pyx_GIVEREF(__pyx_n_u_lxml);
-              PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_7, __pyx_n_u_lxml);
-              __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 11, __pyx_L11_error)
-              __Pyx_GOTREF(__pyx_t_8);
-              __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-            }
-            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __Pyx_XDECREF_SET(__pyx_v_soup, __pyx_t_8);
-            __pyx_t_8 = 0;
-
-            /* "ccompress.pyx":12
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')
- *             with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
- *                 f.write(minify(str(soup), remove_comments=True, convert_charrefs=True))
- * 
- */
-            /*with:*/ {
-              __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 12, __pyx_L11_error)
-              __Pyx_GOTREF(__pyx_t_8);
-              __Pyx_INCREF(__pyx_v_src_path);
-              __Pyx_GIVEREF(__pyx_v_src_path);
-              PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v_src_path);
-              __Pyx_INCREF(__pyx_n_u_w);
-              __Pyx_GIVEREF(__pyx_n_u_w);
-              PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_n_u_w);
-              __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 12, __pyx_L11_error)
-              __Pyx_GOTREF(__pyx_t_6);
-              __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-              __pyx_t_13 = __Pyx_PyObject_LookupSpecial(__pyx_t_6, __pyx_n_s_exit); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 12, __pyx_L11_error)
-              __Pyx_GOTREF(__pyx_t_13);
-              __pyx_t_5 = __Pyx_PyObject_LookupSpecial(__pyx_t_6, __pyx_n_s_enter); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 12, __pyx_L19_error)
-              __Pyx_GOTREF(__pyx_t_5);
-              __pyx_t_1 = NULL;
-              if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-                __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
-                if (likely(__pyx_t_1)) {
-                  PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-                  __Pyx_INCREF(__pyx_t_1);
-                  __Pyx_INCREF(function);
-                  __Pyx_DECREF_SET(__pyx_t_5, function);
-                }
-              }
-              __pyx_t_8 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
-              __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-              if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 12, __pyx_L19_error)
-              __Pyx_GOTREF(__pyx_t_8);
-              __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-              __pyx_t_5 = __pyx_t_8;
-              __pyx_t_8 = 0;
-              __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-              /*try:*/ {
-                {
-                  __Pyx_PyThreadState_declare
-                  __Pyx_PyThreadState_assign
-                  __Pyx_ExceptionSave(&__pyx_t_14, &__pyx_t_15, &__pyx_t_16);
-                  __Pyx_XGOTREF(__pyx_t_14);
-                  __Pyx_XGOTREF(__pyx_t_15);
-                  __Pyx_XGOTREF(__pyx_t_16);
-                  /*try:*/ {
-                    __Pyx_DECREF_SET(__pyx_v_f, __pyx_t_5);
-                    __pyx_t_5 = 0;
-
-                    /* "ccompress.pyx":13
- *             soup = BeautifulSoup(contents, 'lxml')
- *             with open(src_path, 'w') as f:
- *                 f.write(minify(str(soup), remove_comments=True, convert_charrefs=True))             # <<<<<<<<<<<<<<
- * 
- */
-                    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_write); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_6);
-                    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_minify); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_8);
-                    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_v_soup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_1);
-                    __pyx_t_17 = PyTuple_New(1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_17);
-                    __Pyx_GIVEREF(__pyx_t_1);
-                    PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_1);
-                    __pyx_t_1 = 0;
-                    __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_1);
-                    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_remove_comments, Py_True) < 0) __PYX_ERR(0, 13, __pyx_L25_error)
-                    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_convert_charrefs, Py_True) < 0) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_17, __pyx_t_1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_18);
-                    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-                    __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-                    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                    __pyx_t_1 = NULL;
-                    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-                      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_6);
-                      if (likely(__pyx_t_1)) {
-                        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-                        __Pyx_INCREF(__pyx_t_1);
-                        __Pyx_INCREF(function);
-                        __Pyx_DECREF_SET(__pyx_t_6, function);
-                      }
-                    }
-                    __pyx_t_5 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_1, __pyx_t_18) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_18);
-                    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-                    __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-                    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 13, __pyx_L25_error)
-                    __Pyx_GOTREF(__pyx_t_5);
-                    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-                    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-                    /* "ccompress.pyx":12
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')
- *             with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
- *                 f.write(minify(str(soup), remove_comments=True, convert_charrefs=True))
- * 
- */
-                  }
-                  __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-                  __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-                  __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
-                  goto __pyx_L32_try_end;
-                  __pyx_L25_error:;
-                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-                  __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-                  __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
-                  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-                  __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-                  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-                  /*except:*/ {
-                    __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
-                    if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_6, &__pyx_t_18) < 0) __PYX_ERR(0, 12, __pyx_L27_except_error)
-                    __Pyx_GOTREF(__pyx_t_5);
-                    __Pyx_GOTREF(__pyx_t_6);
-                    __Pyx_GOTREF(__pyx_t_18);
-                    __pyx_t_1 = PyTuple_Pack(3, __pyx_t_5, __pyx_t_6, __pyx_t_18); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L27_except_error)
-                    __Pyx_GOTREF(__pyx_t_1);
-                    __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_1, NULL);
-                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-                    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                    if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 12, __pyx_L27_except_error)
-                    __Pyx_GOTREF(__pyx_t_19);
-                    __pyx_t_20 = __Pyx_PyObject_IsTrue(__pyx_t_19);
-                    __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-                    if (__pyx_t_20 < 0) __PYX_ERR(0, 12, __pyx_L27_except_error)
-                    __pyx_t_21 = ((!(__pyx_t_20 != 0)) != 0);
-                    if (__pyx_t_21) {
-                      __Pyx_GIVEREF(__pyx_t_5);
-                      __Pyx_GIVEREF(__pyx_t_6);
-                      __Pyx_XGIVEREF(__pyx_t_18);
-                      __Pyx_ErrRestoreWithState(__pyx_t_5, __pyx_t_6, __pyx_t_18);
-                      __pyx_t_5 = 0; __pyx_t_6 = 0; __pyx_t_18 = 0; 
-                      __PYX_ERR(0, 12, __pyx_L27_except_error)
-                    }
-                    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-                    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-                    __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
-                    goto __pyx_L26_exception_handled;
-                  }
-                  __pyx_L27_except_error:;
-                  __Pyx_XGIVEREF(__pyx_t_14);
-                  __Pyx_XGIVEREF(__pyx_t_15);
-                  __Pyx_XGIVEREF(__pyx_t_16);
-                  __Pyx_ExceptionReset(__pyx_t_14, __pyx_t_15, __pyx_t_16);
-                  goto __pyx_L11_error;
-                  __pyx_L26_exception_handled:;
-                  __Pyx_XGIVEREF(__pyx_t_14);
-                  __Pyx_XGIVEREF(__pyx_t_15);
-                  __Pyx_XGIVEREF(__pyx_t_16);
-                  __Pyx_ExceptionReset(__pyx_t_14, __pyx_t_15, __pyx_t_16);
-                  __pyx_L32_try_end:;
-                }
-              }
-              /*finally:*/ {
-                /*normal exit:*/{
-                  if (__pyx_t_13) {
-                    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_tuple_, NULL);
-                    __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-                    if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 12, __pyx_L11_error)
-                    __Pyx_GOTREF(__pyx_t_16);
-                    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-                  }
-                  goto __pyx_L24;
-                }
-                __pyx_L24:;
-              }
-              goto __pyx_L36;
-              __pyx_L19_error:;
-              __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-              goto __pyx_L11_error;
-              __pyx_L36:;
-            }
-
-            /* "ccompress.pyx":9
- *         src_path = path.join(route, fname)
- *         print(src_path)
- *         with open(src_path, 'r') as f:             # <<<<<<<<<<<<<<
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')
- */
+        __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_path); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 8, __pyx_L5_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_join); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 8, __pyx_L5_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_8 = NULL;
+        __pyx_t_10 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_9);
+          if (likely(__pyx_t_8)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+            __Pyx_INCREF(__pyx_t_8);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_9, function);
+            __pyx_t_10 = 1;
           }
-          __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-          __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-          goto __pyx_L18_try_end;
-          __pyx_L11_error:;
-          __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
-          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_9)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_cur_scope->__pyx_v_route, __pyx_v_fname};
+          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L5_error)
           __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-          /*except:*/ {
-            __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
-            if (__Pyx_GetException(&__pyx_t_18, &__pyx_t_6, &__pyx_t_5) < 0) __PYX_ERR(0, 9, __pyx_L13_except_error)
-            __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_GOTREF(__pyx_t_6);
-            __Pyx_GOTREF(__pyx_t_5);
-            __pyx_t_1 = PyTuple_Pack(3, __pyx_t_18, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L13_except_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_1, NULL);
-            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 9, __pyx_L13_except_error)
-            __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_21 = __Pyx_PyObject_IsTrue(__pyx_t_13);
-            __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-            if (__pyx_t_21 < 0) __PYX_ERR(0, 9, __pyx_L13_except_error)
-            __pyx_t_20 = ((!(__pyx_t_21 != 0)) != 0);
-            if (__pyx_t_20) {
-              __Pyx_GIVEREF(__pyx_t_18);
-              __Pyx_GIVEREF(__pyx_t_6);
-              __Pyx_XGIVEREF(__pyx_t_5);
-              __Pyx_ErrRestoreWithState(__pyx_t_18, __pyx_t_6, __pyx_t_5);
-              __pyx_t_18 = 0; __pyx_t_6 = 0; __pyx_t_5 = 0; 
-              __PYX_ERR(0, 9, __pyx_L13_except_error)
+          __Pyx_GOTREF(__pyx_t_1);
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_8, __pyx_cur_scope->__pyx_v_route, __pyx_v_fname};
+          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L5_error)
+          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+          __Pyx_GOTREF(__pyx_t_1);
+        } else
+        #endif
+        {
+          __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 8, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_11);
+          if (__pyx_t_8) {
+            __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_8); __pyx_t_8 = NULL;
+          }
+          __Pyx_INCREF(__pyx_cur_scope->__pyx_v_route);
+          __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_route);
+          PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_cur_scope->__pyx_v_route);
+          __Pyx_INCREF(__pyx_v_fname);
+          __Pyx_GIVEREF(__pyx_v_fname);
+          PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_v_fname);
+          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_XDECREF_SET(__pyx_v_src_path, __pyx_t_1);
+        __pyx_t_1 = 0;
+
+        /* "ccompress.pyx":9
+ *         try:
+ *             src_path = path.join(route, fname)
+ *             print(src_path)             # <<<<<<<<<<<<<<
+ *             with open(src_path, 'r') as f:
+ *                 contents = f.read()
+ */
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_v_src_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L5_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+        /* "ccompress.pyx":10
+ *             src_path = path.join(route, fname)
+ *             print(src_path)
+ *             with open(src_path, 'r') as f:             # <<<<<<<<<<<<<<
+ *                 contents = f.read()
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ */
+        /*with:*/ {
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_INCREF(__pyx_v_src_path);
+          __Pyx_GIVEREF(__pyx_v_src_path);
+          PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_src_path);
+          __Pyx_INCREF(__pyx_n_u_r);
+          __Pyx_GIVEREF(__pyx_n_u_r);
+          PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_u_r);
+          __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 10, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __pyx_t_12 = __Pyx_PyObject_LookupSpecial(__pyx_t_9, __pyx_n_s_exit); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 10, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __pyx_t_11 = __Pyx_PyObject_LookupSpecial(__pyx_t_9, __pyx_n_s_enter); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 10, __pyx_L13_error)
+          __Pyx_GOTREF(__pyx_t_11);
+          __pyx_t_8 = NULL;
+          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+            __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_11);
+            if (likely(__pyx_t_8)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+              __Pyx_INCREF(__pyx_t_8);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_11, function);
             }
-            __Pyx_XDECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-            goto __pyx_L12_exception_handled;
           }
-          __pyx_L13_except_error:;
-          __Pyx_XGIVEREF(__pyx_t_10);
-          __Pyx_XGIVEREF(__pyx_t_11);
-          __Pyx_XGIVEREF(__pyx_t_12);
-          __Pyx_ExceptionReset(__pyx_t_10, __pyx_t_11, __pyx_t_12);
-          goto __pyx_L1_error;
-          __pyx_L12_exception_handled:;
-          __Pyx_XGIVEREF(__pyx_t_10);
-          __Pyx_XGIVEREF(__pyx_t_11);
-          __Pyx_XGIVEREF(__pyx_t_12);
-          __Pyx_ExceptionReset(__pyx_t_10, __pyx_t_11, __pyx_t_12);
-          __pyx_L18_try_end:;
-        }
-      }
-      /*finally:*/ {
-        /*normal exit:*/{
-          if (__pyx_t_9) {
-            __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_tuple_, NULL);
-            __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-            if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 9, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_11);
+          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+          if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L13_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          __pyx_t_11 = __pyx_t_1;
+          __pyx_t_1 = 0;
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          /*try:*/ {
+            {
+              __Pyx_PyThreadState_declare
+              __Pyx_PyThreadState_assign
+              __Pyx_ExceptionSave(&__pyx_t_13, &__pyx_t_14, &__pyx_t_15);
+              __Pyx_XGOTREF(__pyx_t_13);
+              __Pyx_XGOTREF(__pyx_t_14);
+              __Pyx_XGOTREF(__pyx_t_15);
+              /*try:*/ {
+                __Pyx_XDECREF_SET(__pyx_v_f, __pyx_t_11);
+                __pyx_t_11 = 0;
+
+                /* "ccompress.pyx":11
+ *             print(src_path)
+ *             with open(src_path, 'r') as f:
+ *                 contents = f.read()             # <<<<<<<<<<<<<<
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():
+ */
+                __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 11, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_9);
+                __pyx_t_1 = NULL;
+                if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+                  __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_9);
+                  if (likely(__pyx_t_1)) {
+                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+                    __Pyx_INCREF(__pyx_t_1);
+                    __Pyx_INCREF(function);
+                    __Pyx_DECREF_SET(__pyx_t_9, function);
+                  }
+                }
+                __pyx_t_11 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
+                __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 11, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_11);
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                __Pyx_XDECREF_SET(__pyx_v_contents, __pyx_t_11);
+                __pyx_t_11 = 0;
+
+                /* "ccompress.pyx":12
+ *             with open(src_path, 'r') as f:
+ *                 contents = f.read()
+ *                 soup = BeautifulSoup(contents, 'lxml')             # <<<<<<<<<<<<<<
+ *                 for tag in soup():
+ *                     for attribute in ["style", 'link']:
+ */
+                __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_BeautifulSoup); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 12, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_9);
+                __pyx_t_1 = NULL;
+                __pyx_t_10 = 0;
+                if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+                  __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_9);
+                  if (likely(__pyx_t_1)) {
+                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+                    __Pyx_INCREF(__pyx_t_1);
+                    __Pyx_INCREF(function);
+                    __Pyx_DECREF_SET(__pyx_t_9, function);
+                    __pyx_t_10 = 1;
+                  }
+                }
+                #if CYTHON_FAST_PYCALL
+                if (PyFunction_Check(__pyx_t_9)) {
+                  PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
+                  __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 12, __pyx_L19_error)
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  __Pyx_GOTREF(__pyx_t_11);
+                } else
+                #endif
+                #if CYTHON_FAST_PYCCALL
+                if (__Pyx_PyFastCFunction_Check(__pyx_t_9)) {
+                  PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_v_contents, __pyx_n_u_lxml};
+                  __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_9, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 12, __pyx_L19_error)
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  __Pyx_GOTREF(__pyx_t_11);
+                } else
+                #endif
+                {
+                  __pyx_t_8 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 12, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_8);
+                  if (__pyx_t_1) {
+                    __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1); __pyx_t_1 = NULL;
+                  }
+                  __Pyx_INCREF(__pyx_v_contents);
+                  __Pyx_GIVEREF(__pyx_v_contents);
+                  PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_10, __pyx_v_contents);
+                  __Pyx_INCREF(__pyx_n_u_lxml);
+                  __Pyx_GIVEREF(__pyx_n_u_lxml);
+                  PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_10, __pyx_n_u_lxml);
+                  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_8, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 12, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_11);
+                  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+                }
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                __Pyx_XDECREF_SET(__pyx_v_soup, __pyx_t_11);
+                __pyx_t_11 = 0;
+
+                /* "ccompress.pyx":13
+ *                 contents = f.read()
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():             # <<<<<<<<<<<<<<
+ *                     for attribute in ["style", 'link']:
+ *                         del tag[attribute]
+ */
+                __Pyx_INCREF(__pyx_v_soup);
+                __pyx_t_9 = __pyx_v_soup; __pyx_t_8 = NULL;
+                if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+                  __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_9);
+                  if (likely(__pyx_t_8)) {
+                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+                    __Pyx_INCREF(__pyx_t_8);
+                    __Pyx_INCREF(function);
+                    __Pyx_DECREF_SET(__pyx_t_9, function);
+                  }
+                }
+                __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
+                __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 13, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_11);
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                if (likely(PyList_CheckExact(__pyx_t_11)) || PyTuple_CheckExact(__pyx_t_11)) {
+                  __pyx_t_9 = __pyx_t_11; __Pyx_INCREF(__pyx_t_9); __pyx_t_16 = 0;
+                  __pyx_t_17 = NULL;
+                } else {
+                  __pyx_t_16 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 13, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_9);
+                  __pyx_t_17 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 13, __pyx_L19_error)
+                }
+                __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+                for (;;) {
+                  if (likely(!__pyx_t_17)) {
+                    if (likely(PyList_CheckExact(__pyx_t_9))) {
+                      if (__pyx_t_16 >= PyList_GET_SIZE(__pyx_t_9)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_11 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_16); __Pyx_INCREF(__pyx_t_11); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 13, __pyx_L19_error)
+                      #else
+                      __pyx_t_11 = PySequence_ITEM(__pyx_t_9, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 13, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_11);
+                      #endif
+                    } else {
+                      if (__pyx_t_16 >= PyTuple_GET_SIZE(__pyx_t_9)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_16); __Pyx_INCREF(__pyx_t_11); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 13, __pyx_L19_error)
+                      #else
+                      __pyx_t_11 = PySequence_ITEM(__pyx_t_9, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 13, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_11);
+                      #endif
+                    }
+                  } else {
+                    __pyx_t_11 = __pyx_t_17(__pyx_t_9);
+                    if (unlikely(!__pyx_t_11)) {
+                      PyObject* exc_type = PyErr_Occurred();
+                      if (exc_type) {
+                        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                        else __PYX_ERR(0, 13, __pyx_L19_error)
+                      }
+                      break;
+                    }
+                    __Pyx_GOTREF(__pyx_t_11);
+                  }
+                  __Pyx_XDECREF_SET(__pyx_v_tag, __pyx_t_11);
+                  __pyx_t_11 = 0;
+
+                  /* "ccompress.pyx":14
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():
+ *                     for attribute in ["style", 'link']:             # <<<<<<<<<<<<<<
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):
+ */
+                  __pyx_t_11 = __pyx_tuple_; __Pyx_INCREF(__pyx_t_11); __pyx_t_18 = 0;
+                  for (;;) {
+                    if (__pyx_t_18 >= 2) break;
+                    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                    __pyx_t_8 = PyTuple_GET_ITEM(__pyx_t_11, __pyx_t_18); __Pyx_INCREF(__pyx_t_8); __pyx_t_18++; if (unlikely(0 < 0)) __PYX_ERR(0, 14, __pyx_L19_error)
+                    #else
+                    __pyx_t_8 = PySequence_ITEM(__pyx_t_11, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 14, __pyx_L19_error)
+                    __Pyx_GOTREF(__pyx_t_8);
+                    #endif
+                    __Pyx_XDECREF_SET(__pyx_v_attribute, ((PyObject*)__pyx_t_8));
+                    __pyx_t_8 = 0;
+
+                    /* "ccompress.pyx":15
+ *                 for tag in soup():
+ *                     for attribute in ["style", 'link']:
+ *                         del tag[attribute]             # <<<<<<<<<<<<<<
+ *                 for style in soup.find_all('style'):
+ *                     style.decompose()
+ */
+                    if (unlikely(PyObject_DelItem(__pyx_v_tag, __pyx_v_attribute) < 0)) __PYX_ERR(0, 15, __pyx_L19_error)
+
+                    /* "ccompress.pyx":14
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():
+ *                     for attribute in ["style", 'link']:             # <<<<<<<<<<<<<<
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):
+ */
+                  }
+                  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+                  /* "ccompress.pyx":13
+ *                 contents = f.read()
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():             # <<<<<<<<<<<<<<
+ *                     for attribute in ["style", 'link']:
+ *                         del tag[attribute]
+ */
+                }
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+                /* "ccompress.pyx":16
+ *                     for attribute in ["style", 'link']:
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):             # <<<<<<<<<<<<<<
+ *                     style.decompose()
+ *                 for link in soup.find_all('link'):
+ */
+                __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_soup, __pyx_n_s_find_all); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 16, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_11);
+                __pyx_t_8 = NULL;
+                if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+                  __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_11);
+                  if (likely(__pyx_t_8)) {
+                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+                    __Pyx_INCREF(__pyx_t_8);
+                    __Pyx_INCREF(function);
+                    __Pyx_DECREF_SET(__pyx_t_11, function);
+                  }
+                }
+                __pyx_t_9 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_11, __pyx_t_8, __pyx_n_u_style) : __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_n_u_style);
+                __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 16, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_9);
+                __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+                if (likely(PyList_CheckExact(__pyx_t_9)) || PyTuple_CheckExact(__pyx_t_9)) {
+                  __pyx_t_11 = __pyx_t_9; __Pyx_INCREF(__pyx_t_11); __pyx_t_16 = 0;
+                  __pyx_t_17 = NULL;
+                } else {
+                  __pyx_t_16 = -1; __pyx_t_11 = PyObject_GetIter(__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 16, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_11);
+                  __pyx_t_17 = Py_TYPE(__pyx_t_11)->tp_iternext; if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 16, __pyx_L19_error)
+                }
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                for (;;) {
+                  if (likely(!__pyx_t_17)) {
+                    if (likely(PyList_CheckExact(__pyx_t_11))) {
+                      if (__pyx_t_16 >= PyList_GET_SIZE(__pyx_t_11)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_9 = PyList_GET_ITEM(__pyx_t_11, __pyx_t_16); __Pyx_INCREF(__pyx_t_9); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 16, __pyx_L19_error)
+                      #else
+                      __pyx_t_9 = PySequence_ITEM(__pyx_t_11, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 16, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_9);
+                      #endif
+                    } else {
+                      if (__pyx_t_16 >= PyTuple_GET_SIZE(__pyx_t_11)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_11, __pyx_t_16); __Pyx_INCREF(__pyx_t_9); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 16, __pyx_L19_error)
+                      #else
+                      __pyx_t_9 = PySequence_ITEM(__pyx_t_11, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 16, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_9);
+                      #endif
+                    }
+                  } else {
+                    __pyx_t_9 = __pyx_t_17(__pyx_t_11);
+                    if (unlikely(!__pyx_t_9)) {
+                      PyObject* exc_type = PyErr_Occurred();
+                      if (exc_type) {
+                        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                        else __PYX_ERR(0, 16, __pyx_L19_error)
+                      }
+                      break;
+                    }
+                    __Pyx_GOTREF(__pyx_t_9);
+                  }
+                  __Pyx_XDECREF_SET(__pyx_v_style, __pyx_t_9);
+                  __pyx_t_9 = 0;
+
+                  /* "ccompress.pyx":17
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):
+ *                     style.decompose()             # <<<<<<<<<<<<<<
+ *                 for link in soup.find_all('link'):
+ *                     link.decompose()
+ */
+                  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_style, __pyx_n_s_decompose); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 17, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_8);
+                  __pyx_t_1 = NULL;
+                  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+                    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
+                    if (likely(__pyx_t_1)) {
+                      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+                      __Pyx_INCREF(__pyx_t_1);
+                      __Pyx_INCREF(function);
+                      __Pyx_DECREF_SET(__pyx_t_8, function);
+                    }
+                  }
+                  __pyx_t_9 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 17, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_9);
+                  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+                  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+                  /* "ccompress.pyx":16
+ *                     for attribute in ["style", 'link']:
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):             # <<<<<<<<<<<<<<
+ *                     style.decompose()
+ *                 for link in soup.find_all('link'):
+ */
+                }
+                __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+                /* "ccompress.pyx":18
+ *                 for style in soup.find_all('style'):
+ *                     style.decompose()
+ *                 for link in soup.find_all('link'):             # <<<<<<<<<<<<<<
+ *                     link.decompose()
+ * 
+ */
+                __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_soup, __pyx_n_s_find_all); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 18, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_9);
+                __pyx_t_8 = NULL;
+                if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
+                  __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_9);
+                  if (likely(__pyx_t_8)) {
+                    PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+                    __Pyx_INCREF(__pyx_t_8);
+                    __Pyx_INCREF(function);
+                    __Pyx_DECREF_SET(__pyx_t_9, function);
+                  }
+                }
+                __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_n_u_link) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_n_u_link);
+                __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 18, __pyx_L19_error)
+                __Pyx_GOTREF(__pyx_t_11);
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                if (likely(PyList_CheckExact(__pyx_t_11)) || PyTuple_CheckExact(__pyx_t_11)) {
+                  __pyx_t_9 = __pyx_t_11; __Pyx_INCREF(__pyx_t_9); __pyx_t_16 = 0;
+                  __pyx_t_17 = NULL;
+                } else {
+                  __pyx_t_16 = -1; __pyx_t_9 = PyObject_GetIter(__pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 18, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_9);
+                  __pyx_t_17 = Py_TYPE(__pyx_t_9)->tp_iternext; if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 18, __pyx_L19_error)
+                }
+                __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+                for (;;) {
+                  if (likely(!__pyx_t_17)) {
+                    if (likely(PyList_CheckExact(__pyx_t_9))) {
+                      if (__pyx_t_16 >= PyList_GET_SIZE(__pyx_t_9)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_11 = PyList_GET_ITEM(__pyx_t_9, __pyx_t_16); __Pyx_INCREF(__pyx_t_11); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 18, __pyx_L19_error)
+                      #else
+                      __pyx_t_11 = PySequence_ITEM(__pyx_t_9, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 18, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_11);
+                      #endif
+                    } else {
+                      if (__pyx_t_16 >= PyTuple_GET_SIZE(__pyx_t_9)) break;
+                      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                      __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_9, __pyx_t_16); __Pyx_INCREF(__pyx_t_11); __pyx_t_16++; if (unlikely(0 < 0)) __PYX_ERR(0, 18, __pyx_L19_error)
+                      #else
+                      __pyx_t_11 = PySequence_ITEM(__pyx_t_9, __pyx_t_16); __pyx_t_16++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 18, __pyx_L19_error)
+                      __Pyx_GOTREF(__pyx_t_11);
+                      #endif
+                    }
+                  } else {
+                    __pyx_t_11 = __pyx_t_17(__pyx_t_9);
+                    if (unlikely(!__pyx_t_11)) {
+                      PyObject* exc_type = PyErr_Occurred();
+                      if (exc_type) {
+                        if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                        else __PYX_ERR(0, 18, __pyx_L19_error)
+                      }
+                      break;
+                    }
+                    __Pyx_GOTREF(__pyx_t_11);
+                  }
+                  __Pyx_XDECREF_SET(__pyx_v_link, __pyx_t_11);
+                  __pyx_t_11 = 0;
+
+                  /* "ccompress.pyx":19
+ *                     style.decompose()
+ *                 for link in soup.find_all('link'):
+ *                     link.decompose()             # <<<<<<<<<<<<<<
+ * 
+ *                 with open(src_path, 'w') as f:
+ */
+                  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_link, __pyx_n_s_decompose); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 19, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_8);
+                  __pyx_t_1 = NULL;
+                  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+                    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
+                    if (likely(__pyx_t_1)) {
+                      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+                      __Pyx_INCREF(__pyx_t_1);
+                      __Pyx_INCREF(function);
+                      __Pyx_DECREF_SET(__pyx_t_8, function);
+                    }
+                  }
+                  __pyx_t_11 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 19, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_11);
+                  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+                  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+                  /* "ccompress.pyx":18
+ *                 for style in soup.find_all('style'):
+ *                     style.decompose()
+ *                 for link in soup.find_all('link'):             # <<<<<<<<<<<<<<
+ *                     link.decompose()
+ * 
+ */
+                }
+                __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+                /* "ccompress.pyx":21
+ *                     link.decompose()
+ * 
+ *                 with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:
+ */
+                /*with:*/ {
+                  __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 21, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_9);
+                  __Pyx_INCREF(__pyx_v_src_path);
+                  __Pyx_GIVEREF(__pyx_v_src_path);
+                  PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_v_src_path);
+                  __Pyx_INCREF(__pyx_n_u_w);
+                  __Pyx_GIVEREF(__pyx_n_u_w);
+                  PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_n_u_w);
+                  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_9, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 21, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_11);
+                  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                  __pyx_t_19 = __Pyx_PyObject_LookupSpecial(__pyx_t_11, __pyx_n_s_exit); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 21, __pyx_L19_error)
+                  __Pyx_GOTREF(__pyx_t_19);
+                  __pyx_t_8 = __Pyx_PyObject_LookupSpecial(__pyx_t_11, __pyx_n_s_enter); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 21, __pyx_L35_error)
+                  __Pyx_GOTREF(__pyx_t_8);
+                  __pyx_t_1 = NULL;
+                  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+                    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
+                    if (likely(__pyx_t_1)) {
+                      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+                      __Pyx_INCREF(__pyx_t_1);
+                      __Pyx_INCREF(function);
+                      __Pyx_DECREF_SET(__pyx_t_8, function);
+                    }
+                  }
+                  __pyx_t_9 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
+                  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 21, __pyx_L35_error)
+                  __Pyx_GOTREF(__pyx_t_9);
+                  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+                  __pyx_t_8 = __pyx_t_9;
+                  __pyx_t_9 = 0;
+                  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+                  /*try:*/ {
+                    {
+                      __Pyx_PyThreadState_declare
+                      __Pyx_PyThreadState_assign
+                      __Pyx_ExceptionSave(&__pyx_t_20, &__pyx_t_21, &__pyx_t_22);
+                      __Pyx_XGOTREF(__pyx_t_20);
+                      __Pyx_XGOTREF(__pyx_t_21);
+                      __Pyx_XGOTREF(__pyx_t_22);
+                      /*try:*/ {
+                        __Pyx_DECREF_SET(__pyx_v_f, __pyx_t_8);
+                        __pyx_t_8 = 0;
+
+                        /* "ccompress.pyx":22
+ * 
+ *                 with open(src_path, 'w') as f:
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))             # <<<<<<<<<<<<<<
+ *         except Exception as e:
+ *             print(str(e))
+ */
+                        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_write); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_11);
+                        __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_minify); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_9);
+                        __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_v_soup); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_1);
+                        __pyx_t_23 = PyUnicode_Replace(((PyObject*)__pyx_t_1), __pyx_kp_u__2, __pyx_kp_u__3, -1L); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_23);
+                        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+                        __pyx_t_1 = PyUnicode_Replace(((PyObject*)__pyx_t_23), __pyx_kp_u__4, __pyx_kp_u__3, -1L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_1);
+                        __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+                        __pyx_t_23 = PyUnicode_Replace(((PyObject*)__pyx_t_1), __pyx_kp_u__5, __pyx_kp_u__3, -1L); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_23);
+                        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+                        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_1);
+                        __Pyx_GIVEREF(__pyx_t_23);
+                        PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_23);
+                        __pyx_t_23 = 0;
+                        __pyx_t_23 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_23);
+                        if (PyDict_SetItem(__pyx_t_23, __pyx_n_s_remove_comments, Py_True) < 0) __PYX_ERR(0, 22, __pyx_L41_error)
+                        if (PyDict_SetItem(__pyx_t_23, __pyx_n_s_convert_charrefs, Py_True) < 0) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __pyx_t_24 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_1, __pyx_t_23); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_24);
+                        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+                        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+                        __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+                        __pyx_t_23 = NULL;
+                        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+                          __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_11);
+                          if (likely(__pyx_t_23)) {
+                            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+                            __Pyx_INCREF(__pyx_t_23);
+                            __Pyx_INCREF(function);
+                            __Pyx_DECREF_SET(__pyx_t_11, function);
+                          }
+                        }
+                        __pyx_t_8 = (__pyx_t_23) ? __Pyx_PyObject_Call2Args(__pyx_t_11, __pyx_t_23, __pyx_t_24) : __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_24);
+                        __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+                        __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
+                        if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 22, __pyx_L41_error)
+                        __Pyx_GOTREF(__pyx_t_8);
+                        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+                        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+                        /* "ccompress.pyx":21
+ *                     link.decompose()
+ * 
+ *                 with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:
+ */
+                      }
+                      __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
+                      __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+                      __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
+                      goto __pyx_L48_try_end;
+                      __pyx_L41_error:;
+                      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+                      __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+                      __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+                      __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+                      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+                      /*except:*/ {
+                        __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
+                        if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_11, &__pyx_t_24) < 0) __PYX_ERR(0, 21, __pyx_L43_except_error)
+                        __Pyx_GOTREF(__pyx_t_8);
+                        __Pyx_GOTREF(__pyx_t_11);
+                        __Pyx_GOTREF(__pyx_t_24);
+                        __pyx_t_23 = PyTuple_Pack(3, __pyx_t_8, __pyx_t_11, __pyx_t_24); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 21, __pyx_L43_except_error)
+                        __Pyx_GOTREF(__pyx_t_23);
+                        __pyx_t_25 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_23, NULL);
+                        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+                        __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+                        if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 21, __pyx_L43_except_error)
+                        __Pyx_GOTREF(__pyx_t_25);
+                        __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_t_25);
+                        __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+                        if (__pyx_t_26 < 0) __PYX_ERR(0, 21, __pyx_L43_except_error)
+                        __pyx_t_27 = ((!(__pyx_t_26 != 0)) != 0);
+                        if (__pyx_t_27) {
+                          __Pyx_GIVEREF(__pyx_t_8);
+                          __Pyx_GIVEREF(__pyx_t_11);
+                          __Pyx_XGIVEREF(__pyx_t_24);
+                          __Pyx_ErrRestoreWithState(__pyx_t_8, __pyx_t_11, __pyx_t_24);
+                          __pyx_t_8 = 0; __pyx_t_11 = 0; __pyx_t_24 = 0; 
+                          __PYX_ERR(0, 21, __pyx_L43_except_error)
+                        }
+                        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+                        __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+                        goto __pyx_L42_exception_handled;
+                      }
+                      __pyx_L43_except_error:;
+                      __Pyx_XGIVEREF(__pyx_t_20);
+                      __Pyx_XGIVEREF(__pyx_t_21);
+                      __Pyx_XGIVEREF(__pyx_t_22);
+                      __Pyx_ExceptionReset(__pyx_t_20, __pyx_t_21, __pyx_t_22);
+                      goto __pyx_L19_error;
+                      __pyx_L42_exception_handled:;
+                      __Pyx_XGIVEREF(__pyx_t_20);
+                      __Pyx_XGIVEREF(__pyx_t_21);
+                      __Pyx_XGIVEREF(__pyx_t_22);
+                      __Pyx_ExceptionReset(__pyx_t_20, __pyx_t_21, __pyx_t_22);
+                      __pyx_L48_try_end:;
+                    }
+                  }
+                  /*finally:*/ {
+                    /*normal exit:*/{
+                      if (__pyx_t_19) {
+                        __pyx_t_22 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_tuple__6, NULL);
+                        __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+                        if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 21, __pyx_L19_error)
+                        __Pyx_GOTREF(__pyx_t_22);
+                        __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+                      }
+                      goto __pyx_L40;
+                    }
+                    __pyx_L40:;
+                  }
+                  goto __pyx_L52;
+                  __pyx_L35_error:;
+                  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+                  goto __pyx_L19_error;
+                  __pyx_L52:;
+                }
+
+                /* "ccompress.pyx":10
+ *             src_path = path.join(route, fname)
+ *             print(src_path)
+ *             with open(src_path, 'r') as f:             # <<<<<<<<<<<<<<
+ *                 contents = f.read()
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ */
+              }
+              __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+              __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
+              __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+              goto __pyx_L26_try_end;
+              __pyx_L19_error:;
+              __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+              __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+              __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+              __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+              __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+              __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+              /*except:*/ {
+                __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
+                if (__Pyx_GetException(&__pyx_t_24, &__pyx_t_11, &__pyx_t_8) < 0) __PYX_ERR(0, 10, __pyx_L21_except_error)
+                __Pyx_GOTREF(__pyx_t_24);
+                __Pyx_GOTREF(__pyx_t_11);
+                __Pyx_GOTREF(__pyx_t_8);
+                __pyx_t_23 = PyTuple_Pack(3, __pyx_t_24, __pyx_t_11, __pyx_t_8); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 10, __pyx_L21_except_error)
+                __Pyx_GOTREF(__pyx_t_23);
+                __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_23, NULL);
+                __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+                __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+                if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 10, __pyx_L21_except_error)
+                __Pyx_GOTREF(__pyx_t_19);
+                __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_t_19);
+                __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+                if (__pyx_t_27 < 0) __PYX_ERR(0, 10, __pyx_L21_except_error)
+                __pyx_t_26 = ((!(__pyx_t_27 != 0)) != 0);
+                if (__pyx_t_26) {
+                  __Pyx_GIVEREF(__pyx_t_24);
+                  __Pyx_GIVEREF(__pyx_t_11);
+                  __Pyx_XGIVEREF(__pyx_t_8);
+                  __Pyx_ErrRestoreWithState(__pyx_t_24, __pyx_t_11, __pyx_t_8);
+                  __pyx_t_24 = 0; __pyx_t_11 = 0; __pyx_t_8 = 0; 
+                  __PYX_ERR(0, 10, __pyx_L21_except_error)
+                }
+                __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+                __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+                __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+                goto __pyx_L20_exception_handled;
+              }
+              __pyx_L21_except_error:;
+              __Pyx_XGIVEREF(__pyx_t_13);
+              __Pyx_XGIVEREF(__pyx_t_14);
+              __Pyx_XGIVEREF(__pyx_t_15);
+              __Pyx_ExceptionReset(__pyx_t_13, __pyx_t_14, __pyx_t_15);
+              goto __pyx_L5_error;
+              __pyx_L20_exception_handled:;
+              __Pyx_XGIVEREF(__pyx_t_13);
+              __Pyx_XGIVEREF(__pyx_t_14);
+              __Pyx_XGIVEREF(__pyx_t_15);
+              __Pyx_ExceptionReset(__pyx_t_13, __pyx_t_14, __pyx_t_15);
+              __pyx_L26_try_end:;
+            }
           }
-          goto __pyx_L10;
+          /*finally:*/ {
+            /*normal exit:*/{
+              if (__pyx_t_12) {
+                __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_tuple__6, NULL);
+                __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+                if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 10, __pyx_L5_error)
+                __Pyx_GOTREF(__pyx_t_15);
+                __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+              }
+              goto __pyx_L18;
+            }
+            __pyx_L18:;
+          }
+          goto __pyx_L56;
+          __pyx_L13_error:;
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          goto __pyx_L5_error;
+          __pyx_L56:;
         }
-        __pyx_L10:;
+
+        /* "ccompress.pyx":7
+ * def compress(route: str):
+ *     for fname in (x for x in listdir(route) if '.html' in x):
+ *         try:             # <<<<<<<<<<<<<<
+ *             src_path = path.join(route, fname)
+ *             print(src_path)
+ */
       }
-      goto __pyx_L40;
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      goto __pyx_L12_try_end;
       __pyx_L5_error:;
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+      __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+      /* "ccompress.pyx":23
+ *                 with open(src_path, 'w') as f:
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(str(e))
+ * 
+ */
+      __pyx_t_10 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+      if (__pyx_t_10) {
+        __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
+        if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_11, &__pyx_t_24) < 0) __PYX_ERR(0, 23, __pyx_L7_except_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_GOTREF(__pyx_t_24);
+        __Pyx_INCREF(__pyx_t_11);
+        __pyx_v_e = __pyx_t_11;
+        /*try:*/ {
+
+          /* "ccompress.pyx":24
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:
+ *             print(str(e))             # <<<<<<<<<<<<<<
+ * 
+ */
+          __pyx_t_23 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_v_e); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 24, __pyx_L62_error)
+          __Pyx_GOTREF(__pyx_t_23);
+          __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_23); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L62_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        }
+
+        /* "ccompress.pyx":23
+ *                 with open(src_path, 'w') as f:
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(str(e))
+ * 
+ */
+        /*finally:*/ {
+          /*normal exit:*/{
+            __Pyx_DECREF(__pyx_v_e);
+            __pyx_v_e = NULL;
+            goto __pyx_L63;
+          }
+          __pyx_L62_error:;
+          /*exception exit:*/{
+            __Pyx_PyThreadState_declare
+            __Pyx_PyThreadState_assign
+            __pyx_t_12 = 0; __pyx_t_15 = 0; __pyx_t_14 = 0; __pyx_t_13 = 0; __pyx_t_19 = 0; __pyx_t_22 = 0;
+            __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+            __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+            if (PY_MAJOR_VERSION >= 3) __Pyx_ExceptionSwap(&__pyx_t_13, &__pyx_t_19, &__pyx_t_22);
+            if ((PY_MAJOR_VERSION < 3) || unlikely(__Pyx_GetException(&__pyx_t_12, &__pyx_t_15, &__pyx_t_14) < 0)) __Pyx_ErrFetch(&__pyx_t_12, &__pyx_t_15, &__pyx_t_14);
+            __Pyx_XGOTREF(__pyx_t_12);
+            __Pyx_XGOTREF(__pyx_t_15);
+            __Pyx_XGOTREF(__pyx_t_14);
+            __Pyx_XGOTREF(__pyx_t_13);
+            __Pyx_XGOTREF(__pyx_t_19);
+            __Pyx_XGOTREF(__pyx_t_22);
+            __pyx_t_10 = __pyx_lineno; __pyx_t_28 = __pyx_clineno; __pyx_t_29 = __pyx_filename;
+            {
+              __Pyx_DECREF(__pyx_v_e);
+              __pyx_v_e = NULL;
+            }
+            if (PY_MAJOR_VERSION >= 3) {
+              __Pyx_XGIVEREF(__pyx_t_13);
+              __Pyx_XGIVEREF(__pyx_t_19);
+              __Pyx_XGIVEREF(__pyx_t_22);
+              __Pyx_ExceptionReset(__pyx_t_13, __pyx_t_19, __pyx_t_22);
+            }
+            __Pyx_XGIVEREF(__pyx_t_12);
+            __Pyx_XGIVEREF(__pyx_t_15);
+            __Pyx_XGIVEREF(__pyx_t_14);
+            __Pyx_ErrRestore(__pyx_t_12, __pyx_t_15, __pyx_t_14);
+            __pyx_t_12 = 0; __pyx_t_15 = 0; __pyx_t_14 = 0; __pyx_t_13 = 0; __pyx_t_19 = 0; __pyx_t_22 = 0;
+            __pyx_lineno = __pyx_t_10; __pyx_clineno = __pyx_t_28; __pyx_filename = __pyx_t_29;
+            goto __pyx_L7_except_error;
+          }
+          __pyx_L63:;
+        }
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
+        goto __pyx_L6_exception_handled;
+      }
+      goto __pyx_L7_except_error;
+      __pyx_L7_except_error:;
+
+      /* "ccompress.pyx":7
+ * def compress(route: str):
+ *     for fname in (x for x in listdir(route) if '.html' in x):
+ *         try:             # <<<<<<<<<<<<<<
+ *             src_path = path.join(route, fname)
+ *             print(src_path)
+ */
+      __Pyx_XGIVEREF(__pyx_t_5);
+      __Pyx_XGIVEREF(__pyx_t_6);
+      __Pyx_XGIVEREF(__pyx_t_7);
+      __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_6, __pyx_t_7);
       goto __pyx_L1_error;
-      __pyx_L40:;
+      __pyx_L6_exception_handled:;
+      __Pyx_XGIVEREF(__pyx_t_5);
+      __Pyx_XGIVEREF(__pyx_t_6);
+      __Pyx_XGIVEREF(__pyx_t_7);
+      __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_6, __pyx_t_7);
+      __pyx_L12_try_end:;
     }
 
     /* "ccompress.pyx":6
  * 
  * def compress(route: str):
  *     for fname in (x for x in listdir(route) if '.html' in x):             # <<<<<<<<<<<<<<
- *         src_path = path.join(route, fname)
- *         print(src_path)
+ *         try:
+ *             src_path = path.join(route, fname)
  */
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2180,7 +2702,7 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
 
   /* function exit code */
@@ -2189,11 +2711,11 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_XDECREF(__pyx_t_18);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_23);
+  __Pyx_XDECREF(__pyx_t_24);
   __Pyx_AddTraceback("ccompress.compress", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2202,6 +2724,11 @@ static PyObject *__pyx_pf_9ccompress_compress(CYTHON_UNUSED PyObject *__pyx_self
   __Pyx_XDECREF(__pyx_v_f);
   __Pyx_XDECREF(__pyx_v_contents);
   __Pyx_XDECREF(__pyx_v_soup);
+  __Pyx_XDECREF(__pyx_v_tag);
+  __Pyx_XDECREF(__pyx_v_attribute);
+  __Pyx_XDECREF(__pyx_v_style);
+  __Pyx_XDECREF(__pyx_v_link);
+  __Pyx_XDECREF(__pyx_v_e);
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -2464,7 +2991,12 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_BeautifulSoup, __pyx_k_BeautifulSoup, sizeof(__pyx_k_BeautifulSoup), 0, 0, 1, 1},
+  {&__pyx_kp_u__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 1, 0, 0},
+  {&__pyx_kp_u__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 1, 0, 0},
+  {&__pyx_kp_u__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 1, 0, 0},
+  {&__pyx_kp_u__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 1, 0, 0},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
+  {&__pyx_n_s_attribute, __pyx_k_attribute, sizeof(__pyx_k_attribute), 0, 0, 1, 1},
   {&__pyx_n_s_bs4, __pyx_k_bs4, sizeof(__pyx_k_bs4), 0, 0, 1, 1},
   {&__pyx_n_s_ccompress, __pyx_k_ccompress, sizeof(__pyx_k_ccompress), 0, 0, 1, 1},
   {&__pyx_kp_s_ccompress_pyx, __pyx_k_ccompress_pyx, sizeof(__pyx_k_ccompress_pyx), 0, 0, 1, 0},
@@ -2474,15 +3006,20 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_compress_locals_genexpr, __pyx_k_compress_locals_genexpr, sizeof(__pyx_k_compress_locals_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_contents, __pyx_k_contents, sizeof(__pyx_k_contents), 0, 0, 1, 1},
   {&__pyx_n_s_convert_charrefs, __pyx_k_convert_charrefs, sizeof(__pyx_k_convert_charrefs), 0, 0, 1, 1},
+  {&__pyx_n_s_decompose, __pyx_k_decompose, sizeof(__pyx_k_decompose), 0, 0, 1, 1},
+  {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_enter, __pyx_k_enter, sizeof(__pyx_k_enter), 0, 0, 1, 1},
   {&__pyx_n_s_exit, __pyx_k_exit, sizeof(__pyx_k_exit), 0, 0, 1, 1},
   {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
+  {&__pyx_n_s_find_all, __pyx_k_find_all, sizeof(__pyx_k_find_all), 0, 0, 1, 1},
   {&__pyx_n_s_fname, __pyx_k_fname, sizeof(__pyx_k_fname), 0, 0, 1, 1},
   {&__pyx_n_s_genexpr, __pyx_k_genexpr, sizeof(__pyx_k_genexpr), 0, 0, 1, 1},
   {&__pyx_kp_u_html, __pyx_k_html, sizeof(__pyx_k_html), 0, 1, 0, 0},
   {&__pyx_n_s_htmlmin, __pyx_k_htmlmin, sizeof(__pyx_k_htmlmin), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
+  {&__pyx_n_s_link, __pyx_k_link, sizeof(__pyx_k_link), 0, 0, 1, 1},
+  {&__pyx_n_u_link, __pyx_k_link, sizeof(__pyx_k_link), 0, 1, 0, 1},
   {&__pyx_n_s_listdir, __pyx_k_listdir, sizeof(__pyx_k_listdir), 0, 0, 1, 1},
   {&__pyx_n_u_lxml, __pyx_k_lxml, sizeof(__pyx_k_lxml), 0, 1, 0, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -2499,6 +3036,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_soup, __pyx_k_soup, sizeof(__pyx_k_soup), 0, 0, 1, 1},
   {&__pyx_n_s_src_path, __pyx_k_src_path, sizeof(__pyx_k_src_path), 0, 0, 1, 1},
+  {&__pyx_n_s_style, __pyx_k_style, sizeof(__pyx_k_style), 0, 0, 1, 1},
+  {&__pyx_n_u_style, __pyx_k_style, sizeof(__pyx_k_style), 0, 1, 0, 1},
+  {&__pyx_n_s_tag, __pyx_k_tag, sizeof(__pyx_k_tag), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_u_w, __pyx_k_w, sizeof(__pyx_k_w), 0, 1, 0, 1},
@@ -2506,8 +3046,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 8, __pyx_L1_error)
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 10, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2517,28 +3057,39 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ccompress.pyx":12
- *             contents = f.read()
- *             soup = BeautifulSoup(contents, 'lxml')
- *             with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
- *                 f.write(minify(str(soup), remove_comments=True, convert_charrefs=True))
- * 
+  /* "ccompress.pyx":14
+ *                 soup = BeautifulSoup(contents, 'lxml')
+ *                 for tag in soup():
+ *                     for attribute in ["style", 'link']:             # <<<<<<<<<<<<<<
+ *                         del tag[attribute]
+ *                 for style in soup.find_all('style'):
  */
-  __pyx_tuple_ = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_u_style, __pyx_n_u_link); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "ccompress.pyx":21
+ *                     link.decompose()
+ * 
+ *                 with open(src_path, 'w') as f:             # <<<<<<<<<<<<<<
+ *                     f.write(minify(str(soup).replace('\n', '').replace('\r', '').replace('  ', ''), remove_comments=True, convert_charrefs=True))
+ *         except Exception as e:
+ */
+  __pyx_tuple__6 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "ccompress.pyx":5
  * from htmlmin import minify
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
-  __pyx_tuple__2 = PyTuple_Pack(8, __pyx_n_s_route, __pyx_n_s_fname, __pyx_n_s_src_path, __pyx_n_s_f, __pyx_n_s_contents, __pyx_n_s_soup, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
-  __pyx_codeobj__3 = (PyObject*)__Pyx_PyCode_New(1, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__2, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccompress_pyx, __pyx_n_s_compress, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__3)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(13, __pyx_n_s_route, __pyx_n_s_fname, __pyx_n_s_src_path, __pyx_n_s_f, __pyx_n_s_contents, __pyx_n_s_soup, __pyx_n_s_tag, __pyx_n_s_attribute, __pyx_n_s_style, __pyx_n_s_link, __pyx_n_s_e, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccompress_pyx, __pyx_n_s_compress, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2906,7 +3457,7 @@ if (!__Pyx_RefNanny) {
  * 
  * def compress(route: str):             # <<<<<<<<<<<<<<
  *     for fname in (x for x in listdir(route) if '.html' in x):
- *         src_path = path.join(route, fname)
+ *         try:
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9ccompress_1compress, NULL, __pyx_n_s_ccompress); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3505,6 +4056,66 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
     tstate->curexc_type = 0;
     tstate->curexc_value = 0;
     tstate->curexc_traceback = 0;
+}
+#endif
+
+/* PyErrExceptionMatches */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
+    Py_ssize_t i, n;
+    n = PyTuple_GET_SIZE(tuple);
+#if PY_MAJOR_VERSION >= 3
+    for (i=0; i<n; i++) {
+        if (exc_type == PyTuple_GET_ITEM(tuple, i)) return 1;
+    }
+#endif
+    for (i=0; i<n; i++) {
+        if (__Pyx_PyErr_GivenExceptionMatches(exc_type, PyTuple_GET_ITEM(tuple, i))) return 1;
+    }
+    return 0;
+}
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
+    PyObject *exc_type = tstate->curexc_type;
+    if (exc_type == err) return 1;
+    if (unlikely(!exc_type)) return 0;
+    if (unlikely(PyTuple_Check(err)))
+        return __Pyx_PyErr_ExceptionMatchesTuple(exc_type, err);
+    return __Pyx_PyErr_GivenExceptionMatches(exc_type, err);
+}
+#endif
+
+/* SwapException */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    tmp_type = exc_info->exc_type;
+    tmp_value = exc_info->exc_value;
+    tmp_tb = exc_info->exc_traceback;
+    exc_info->exc_type = *type;
+    exc_info->exc_value = *value;
+    exc_info->exc_traceback = *tb;
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = *type;
+    tstate->exc_value = *value;
+    tstate->exc_traceback = *tb;
+    #endif
+    *type = tmp_type;
+    *value = tmp_value;
+    *tb = tmp_tb;
+}
+#else
+static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    PyErr_GetExcInfo(&tmp_type, &tmp_value, &tmp_tb);
+    PyErr_SetExcInfo(*type, *value, *tb);
+    *type = tmp_type;
+    *value = tmp_value;
+    *tb = tmp_tb;
 }
 #endif
 
@@ -4560,41 +5171,6 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 bad:
     Py_XDECREF(owned_instance);
     return;
-}
-#endif
-
-/* SwapException */
-#if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    #if CYTHON_USE_EXC_INFO_STACK
-    _PyErr_StackItem *exc_info = tstate->exc_info;
-    tmp_type = exc_info->exc_type;
-    tmp_value = exc_info->exc_value;
-    tmp_tb = exc_info->exc_traceback;
-    exc_info->exc_type = *type;
-    exc_info->exc_value = *value;
-    exc_info->exc_traceback = *tb;
-    #else
-    tmp_type = tstate->exc_type;
-    tmp_value = tstate->exc_value;
-    tmp_tb = tstate->exc_traceback;
-    tstate->exc_type = *type;
-    tstate->exc_value = *value;
-    tstate->exc_traceback = *tb;
-    #endif
-    *type = tmp_type;
-    *value = tmp_value;
-    *tb = tmp_tb;
-}
-#else
-static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    PyErr_GetExcInfo(&tmp_type, &tmp_value, &tmp_tb);
-    PyErr_SetExcInfo(*type, *value, *tb);
-    *type = tmp_type;
-    *value = tmp_value;
-    *tb = tmp_tb;
 }
 #endif
 
