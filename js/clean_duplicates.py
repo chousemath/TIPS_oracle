@@ -2,6 +2,7 @@ import hashlib
 from os import path, listdir, remove
 
 def md5(fname: str) -> str:
+    """Convert a file into its md5 hash"""
     hash_md5 = hashlib.md5()
     with open(fname, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
