@@ -21,7 +21,9 @@ set -o nounset                              # Treat unset variables as an error
 
 while true
 do
-    node encar_domestic.js && python parse_pages_list_encar_domestic.py
+    node encar_domestic.js 
+    python parse_pages_list_encar_domestic.py
+    node encar_domestic_detail.js
 done
 
 

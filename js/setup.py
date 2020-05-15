@@ -11,6 +11,7 @@ mods: List[str] = [
     'cparse_pages_detail_autoinside.pyx',
     'cdecompose.pyx',
     'ccompress.pyx',
+    'cparse_pages_daum.pyx',
 ]
 for mod in mods:
     setup(ext_modules=cythonize(
