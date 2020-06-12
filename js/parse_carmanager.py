@@ -51,6 +51,7 @@ with open('carmanager.csv','a+') as fd:
                         car_plate_num,
                         car_options,
                     ])
+                    print(f'row written, {car_plate_num}')
             except Exception as e:
                 print(str(e))
 
