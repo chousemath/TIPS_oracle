@@ -23,6 +23,7 @@ with open('carmanager.csv','a+') as fd:
                     car_transmission = ''
                     car_fuel = ''
                     car_plate_num = ''
+                    car_color = ''
     
                     car_options = []
                     for inp in [x for x in soup.find_all('input', checked=True, id=False)]:
@@ -38,6 +39,8 @@ with open('carmanager.csv','a+') as fd:
                             car_transmission = th.findNext('td').text.strip()
                         if th.text == '주행거리':
                             car_mileage = int(th.findNext('td').text.replace(',', '').replace(' km', '').strip())
+                        if th.text == '색 상':
+                            car_color = th.findNext('td').text.strip()
                     car_options = '|'.join(car_options)
                     writer.writerow([
                         ts,
@@ -49,6 +52,7 @@ with open('carmanager.csv','a+') as fd:
                         car_transmission,
                         car_fuel,
                         car_plate_num,
+                        car_color,
                         car_options,
                     ])
                     print(f'row written, {car_plate_num}')
