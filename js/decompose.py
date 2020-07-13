@@ -6,6 +6,7 @@ from time import sleep
 Route = Tuple[str, str]
 
 routes: List[Route] = [
+    ('pages_detail_carmanager', 'html_src_carmanager'),
     ('pages_detail', 'html_src_encar'),
     ('pages_detail_encar_domestic', 'html_src_encar'),
     ('pages_detail_mpark', 'html_src_mpark'),

@@ -42,12 +42,12 @@ names.sort(key=itemgetter(1), reverse=True)
 
 # Plot timestamp vs price
 #fig, ax = plt.subplots(3)
-#fig.tight_layout()
-#for i, name in enumerate(names[:3]):
+# fig.tight_layout()
+# for i, name in enumerate(names[:3]):
 #    df_vals = df_encar[df_encar.name == name[0]]
 #    ax[i].scatter(df_vals.timestamp, df_vals.price)
 #    coef = np.polyfit(df_vals.timestamp, df_vals.price, 1)
-#    poly1d_fn = np.poly1d(coef) 
+#    poly1d_fn = np.poly1d(coef)
 #    ax[i].plot(df_vals.timestamp, df_vals.price, 'yo', df_vals.timestamp, poly1d_fn(df_vals.timestamp), '--k')
 #    reg = linregress(df_vals.timestamp, df_vals.price)
 #    rvalue = f'r: {round(reg.rvalue, 4)}'
@@ -68,16 +68,19 @@ for i, name in enumerate(names[:3]):
     df_vals = df_encar[df_encar.name == name[0]]
     ax[i].scatter(df_vals.mileage, df_vals.price)
     coef = np.polyfit(df_vals.mileage, df_vals.price, 1)
-    poly1d_fn = np.poly1d(coef) 
-    ax[i].plot(df_vals.mileage, df_vals.price, 'yo', df_vals.mileage, poly1d_fn(df_vals.mileage), '--k')
+    poly1d_fn = np.poly1d(coef)
+    ax[i].plot(df_vals.mileage, df_vals.price, 'yo',
+               df_vals.mileage, poly1d_fn(df_vals.mileage), '--k')
     reg = linregress(df_vals.mileage, df_vals.price)
     rvalue = f'r: {round(reg.rvalue, 4)}'
     pvalue = f'p: {round(reg.pvalue, 4)}'
     stderr = f'err: {round(reg.stderr, 4)}'
-    ax[i].set_title(f'{name[0]}, ({rvalue}, {pvalue}, {stderr})', fontproperties=fontprop)
+    ax[i].set_title(
+        f'{name[0]}, ({rvalue}, {pvalue}, {stderr})', fontproperties=fontprop)
     ax[i].set_xticks([])
     ax[i].set_xlabel('Mileage (KM)')
     ax[i].set_yticks([])
     ax[i].set_ylabel('Price (KRW)')
 
-plt.savefig(path.join('experiments', 'process_encar_04', 'mileage-price.png'), bbox_inches="tight")
+plt.savefig(path.join('experiments', 'process_encar_04',
+                      'mileage-price.png'), bbox_inches="tight")

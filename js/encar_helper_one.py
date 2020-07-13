@@ -1,6 +1,7 @@
 from typing import List, Sequence, Tuple, Dict
 import unicodedata as ud
 
+
 def norm(in_val: str) -> str:
     return ud.normalize('NFC', str(in_val)).strip()
 
@@ -48,4 +49,3 @@ def format_chartjs(in_val: Sequence[Tuple[str, int]]) -> Dict:
         labels.append(x[0])
         data.append(x[1])
     return {'data': data, 'labels': labels}
-

@@ -1,6 +1,7 @@
 import hashlib
 from os import path, listdir, remove
 
+
 def md5(fname: str) -> str:
     """Convert a file into its md5 hash"""
     hash_md5 = hashlib.md5()
@@ -8,6 +9,7 @@ def md5(fname: str) -> str:
         for chunk in iter(lambda: f.read(4096), b""):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
+
 
 while True:
     for root in [x for x in listdir('.') if path.isdir(x)]:
@@ -24,7 +26,7 @@ while True:
                 else:
                     duplicates += 1
                     remove(fpath)
-            
+
             print(f'total: {total}, duplicates: {duplicates}\n\n')
         except Exception as e:
             print(str(e))

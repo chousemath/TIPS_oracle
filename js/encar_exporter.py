@@ -103,7 +103,7 @@ def encar_vehicle(bs_obj: Type[BeautifulSoup], timestamp: str, carid: str) -> Li
     car_options = bs_obj.find('div', {'class': 'con option_hover'})
 
     checked_options = bs_obj.findAll('dd', {'class': 'on'})
-    #if car_options is not None:
+    # if car_options is not None:
     #    checked_options = bs_obj.findAll('dd', {'class': 'on'})
 
     _options = [x.find('a') for x in checked_options]

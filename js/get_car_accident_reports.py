@@ -13,6 +13,7 @@ src = 'pages_detail'
 src2 = 'pages_detail_encar_domestic'
 links = {}
 
+
 def get_html(car_type: int, car_id: str, final_path: str):
     print(f'creating {final_path}')
     if car_type == 2:
@@ -25,6 +26,7 @@ def get_html(car_type: int, car_id: str, final_path: str):
     page = requests.get(url)
     with open(final_path, 'w') as writer:
         writer.write(page.text)
+
 
 def run():
     while True:
@@ -75,6 +77,7 @@ def run():
 
                 print(car_type, final_path)
                 get_html(car_type, value, final_path)
+
 
 if __name__ == '__main__':
     run()

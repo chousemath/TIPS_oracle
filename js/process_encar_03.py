@@ -12,8 +12,6 @@ font_name = 'NotoSansKR-Regular.otf'
 fontprop = fm.FontProperties(fname=font_name, size=10)
 
 
-
-
 root = 'csv_encar'
 latest = sorted([x for x in listdir(root) if '.csv' in x])[-1]
 df = pd.read_csv(path.join(root, latest)).dropna()
