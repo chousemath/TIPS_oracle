@@ -31,11 +31,17 @@ df = pd.read_csv('carmanager.csv', sep=',', names=names)
 def item_id(row) -> str:
     return norm(row.get('item_id', '').strip())
 
-def color(row) -> str:
-    return norm(row.get('color', '').strip())
+def _color(row) -> str:
+    c = row.get('color', '')
+    if not isinstance(c, str):
+        return ''
+    return norm(c.strip())
 
-def transmission(row) -> str:
-    return norm(row.get('transmission', '').strip())
+def _transmission(row) -> str:
+    t = row.get('transmission', '')
+    if not isinstance(t, str):
+        return ''
+    return norm(t.strip())
 
 def no_accident(row) -> str:
     if row.get('noaccident', 0) == 0:
@@ -56,15 +62,15 @@ def gen_nm_yr_color(row) -> str:
     transmission = str(row.get('transmission', 'xxx')).strip()
     return norm(f'{nm or "xxx"} {yr or "xxx"} {color or "xxx"} {transmission or "xxx"}')
 
-df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
 df['noaccident'] = df.apply(lambda x: no_accident(x), axis=1)
-df['color'] = df.apply(lambda x: color(x), axis=1)
+df['color'] = df.apply(lambda x: _color(x), axis=1)
 df['item_id'] = df.apply(lambda x: item_id(x), axis=1)
-df['transmission'] = df.apply(lambda x: transmission(x), axis=1)
+df['transmission'] = df.apply(lambda x: _transmission(x), axis=1)
 df['yeswarranty'] = df.apply(lambda x: yes_warranty(x), axis=1)
+df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
 df = df[~df['name_year_color'].str.contains('xxx')]
 
-df = df[['item_id', 'color', 'noaccident', 'yeswarranty', 'transmission']]
+df = df[['item_id', 'modelyear', 'color', 'noaccident', 'yeswarranty', 'transmission']]
 df = df.dropna()
 df.drop_duplicates(inplace=True)
 
@@ -72,6 +78,7 @@ transmissions = {}
 colors = {}
 accidents = {}
 warranties = {}
+years = {}
 
 for _, row in df.iterrows():
     id = row['item_id']
@@ -79,10 +86,12 @@ for _, row in df.iterrows():
     accident = row['noaccident']
     warranty = row['yeswarranty']
     transmission = row['transmission']
+    year = str(row['modelyear'])
 
     n1 = f'{id} {color}'
     n2 = f'{id} {color} {transmission}'
     n3 = f'{id} {color} {transmission} {accident}'
+    n4 = f'{id} {color} {transmission} {accident} {warranty}'
 
     if id in colors:
         colors[id][color] = 1
@@ -104,6 +113,11 @@ for _, row in df.iterrows():
     else:
         warranties[n3] = {warranty: 1}
 
+    if n4 in years:
+        years[n4][year] = 1
+    else:
+        years[n4] = {year: 1}
+
 
 with io.open('carmanager_colors.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(colors, ensure_ascii=False, indent=4))
@@ -113,3 +127,6 @@ with io.open('carmanager_accidents.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(accidents, ensure_ascii=False, indent=4))
 with io.open('carmanager_warranties.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(warranties, ensure_ascii=False, indent=4))
+with io.open('carmanager_years.json', 'w', encoding='utf-8') as f:
+    f.write(json.dumps(years, ensure_ascii=False, indent=4))
+
