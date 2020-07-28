@@ -8,4 +8,5 @@ do
     cd ..
     python carmanager_scripts.py
     node carmanager_detail.js
+    node cm_selection.js
 done
