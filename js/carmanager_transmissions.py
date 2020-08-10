@@ -27,6 +27,8 @@ names = [
     'options'
 ]
 df = pd.read_csv('carmanager.csv', sep=',', names=names)
+with open('allowed_by_color.json') as json_file:
+    allowed = json.load(json_file)
 
 def item_id(row) -> str:
     return norm(row.get('item_id', '').strip())
@@ -118,7 +120,11 @@ for _, row in df.iterrows():
     else:
         years[n4] = {year: 1}
 
+for k in allowed:
+    allowed[k] = 0 if colors.get(k) is None else 1
 
+with io.open('carmanager_allowed.json', 'w', encoding='utf-8') as f:
+    f.write(json.dumps(allowed, ensure_ascii=False, indent=4))
 with io.open('carmanager_colors.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(colors, ensure_ascii=False, indent=4))
 with io.open('carmanager_transmissions.json', 'w', encoding='utf-8') as f:

@@ -33,6 +33,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         await page.goto(`${root}/${extData}`, { waitUntil: 'networkidle2', timeout: 0 });
         await sleep(1000);
         const data = {};
+        const allowed = {};
         const makers = await page.evaluate(() => {
             return Array.from(document
                 .getElementById('ui_searchcarmaker')
@@ -40,6 +41,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         });
         for (let maker of makers) {
             data[maker] = {};
+            allowed[maker] = 1;
             await page.evaluate(itext => {
                 for (let item of Array.from(document.getElementById('ui_searchcarmaker').getElementsByTagName('li'))) {
                     if (item.innerText === itext) {
@@ -72,6 +74,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
                 });
                 for (let modelDetail of modelDetails) {
                     data[maker][model][modelDetail] = {};
+                    allowed[maker + ' ' + modelDetail] = 1;
                     for (let _ of modelDetails) {
                         const unchecked = await page.evaluate(() => {
                             for (let item of Array.from(document.getElementById('ui_searchcarmodeldetail').getElementsByTagName('li'))) {
@@ -105,6 +108,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
                     });
                     for (let grade of grades) {
                         data[maker][model][modelDetail][grade] = {};
+                        allowed[maker + ' ' + modelDetail + ' ' + grade] = 1;
                         for (let _ of grades) {
                             const unchecked = await page.evaluate(() => {
                                 for (let item of Array.from(document.getElementById('ui_searchcargrade').getElementsByTagName('li'))) {
@@ -138,12 +142,17 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
                         });
                         for (let gradeDetail of gradeDetails) {
                             data[maker][model][modelDetail][grade][gradeDetail] = 1;
+                            allowed[maker + ' ' + modelDetail + ' ' + grade + ' ' + gradeDetail] = 1;
                         }
                     }
                 }
             }
         }
         await fs.writeFile(path.join(__dirname, 'cm_selection.json'), JSON.stringify(data), (err) => {
+            if (err)
+                console.log(err);
+        });
+        await fs.writeFile(path.join(__dirname, 'allowed_by_color.json'), JSON.stringify(allowed), (err) => {
             if (err)
                 console.log(err);
         });
