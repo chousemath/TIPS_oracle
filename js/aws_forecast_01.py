@@ -68,6 +68,16 @@ def gen_nm_yr_color(row) -> str:
     transmission = str(row.get('transmission', 'xxx')).strip()
     return norm(f'{nm or "xxx"} {yr or "xxx"} {color or "xxx"} {transmission or "xxx"}')
 
+def gen_item_id(row) -> str:
+    nm = row.get('item_id', 'xxx').strip()
+    yr = str(row.get('modelyear', 'xxx')).strip()
+    color = str(row.get('color', 'xxx')).strip()
+    transmission = str(row.get('transmission', 'xxx')).strip()
+    accident = str(row.get('accident', 'xxx')).strip()
+    warranty = str(row.get('warranty', 'xxx')).strip()
+    return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr}')
+
+
 def adjust_price(row) -> int:
     return int(row.get('target_value', 0))
 
@@ -75,13 +85,13 @@ def adjust_price(row) -> int:
 df['timestamp'] = df.apply(lambda x: dt.utcfromtimestamp(x.get('timestamp')).strftime('%Y-%m-%d 00:00:00'), axis=1)
 df['accident'] = df.apply(lambda x: no_accident(x), axis=1)
 df['color'] = df.apply(lambda x: _color(x), axis=1)
-df['item_id'] = df.apply(lambda x: item_id(x), axis=1)
 df['transmission'] = df.apply(lambda x: _transmission(x), axis=1)
 df['warranty'] = df.apply(lambda x: yes_warranty(x), axis=1)
 df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
 df['target_value'] = df.apply(lambda x: adjust_price(x), axis=1)
 df = df[~df['name_year_color'].str.contains('xxx')]
 df = df[df['target_value'] != 0]
+df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
 
 #opt_count = 0
 #option_alias = {}
@@ -107,9 +117,10 @@ df = df[df['target_value'] != 0]
 
 df = df.drop_duplicates()
 
-df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
-df['modelyear'] = df.apply(lambda x: str(x.get('modelyear')), axis=1)
-df['mileage'] = df.apply(lambda x: str(x.get('mileage')), axis=1)
+#df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
+df = df[['timestamp', 'target_value', 'item_id']]
+#df['modelyear'] = df.apply(lambda x: str(x.get('modelyear')), axis=1)
+#df['mileage'] = df.apply(lambda x: str(x.get('mileage')), axis=1)
 df = df.dropna()
 df = df.sort_values(by=['timestamp'])
 
