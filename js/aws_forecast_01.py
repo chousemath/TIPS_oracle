@@ -68,6 +68,9 @@ def gen_nm_yr_color(row) -> str:
     transmission = str(row.get('transmission', 'xxx')).strip()
     return norm(f'{nm or "xxx"} {yr or "xxx"} {color or "xxx"} {transmission or "xxx"}')
 
+def gen_mileage_tag(mileage: int) -> int:
+    return 10_000 * ceil(mileage / 10_000)
+
 def gen_item_id(row) -> str:
     nm = row.get('item_id', 'xxx').strip()
     yr = str(row.get('modelyear', 'xxx')).strip()
@@ -75,7 +78,9 @@ def gen_item_id(row) -> str:
     transmission = str(row.get('transmission', 'xxx')).strip()
     accident = str(row.get('accident', 'xxx')).strip()
     warranty = str(row.get('warranty', 'xxx')).strip()
+    mileage_tag = gen_mileage_tag(row.get('mileage', 0))
     return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr}')
+    #return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr} {mileage_tag}')
 
 
 def adjust_price(row) -> int:

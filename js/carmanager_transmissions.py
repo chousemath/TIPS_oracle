@@ -120,8 +120,9 @@ for _, row in df.iterrows():
     else:
         years[n4] = {year: 1}
 
+color_keys = colors.keys()
 for k in allowed:
-    allowed[k] = 0 if colors.get(k) is None else 1
+    allowed[k] = 1 if len([x for x in color_keys if x.startswith(k)])>0 else 0
 
 with io.open('carmanager_allowed.json', 'w', encoding='utf-8') as f:
     f.write(json.dumps(allowed, ensure_ascii=False, indent=4))
