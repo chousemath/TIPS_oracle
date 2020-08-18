@@ -11,7 +11,10 @@ root_dirs = ['pages_detail_carmanager']
 with open('carmanager.csv', 'a+') as fd:
     writer = csv.writer(fd)
     for root_dir in root_dirs:
-        for (p, file_name) in ((path.join(root_dir, f), f) for f in listdir(root_dir) if '.html' in f):
+        files = [(path.join(root_dir, f), f) for f in listdir(root_dir) if '.html' in f]
+        file_count = len(files)
+        count = 0
+        for (p, file_name) in files:
             ts = int(file_name.split('-')[0]) // 1000
             try:
                 with open(p, 'r') as f:
@@ -66,6 +69,7 @@ with open('carmanager.csv', 'a+') as fd:
                         yes_warranty,
                         car_options,
                     ])
-                    print(f'row written, {car_plate_num}')
+                    count += 1
+                    print(f'row written, {car_plate_num}, {count}/{file_count}')
             except Exception as e:
                 print(str(e))

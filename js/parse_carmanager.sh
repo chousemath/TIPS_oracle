@@ -6,4 +6,5 @@ while true
 do
     python parse_carmanager.py
     python aws_forecast_01.py
+    python carmanager_transmissions.py
 done

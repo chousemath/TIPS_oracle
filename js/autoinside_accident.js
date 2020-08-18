@@ -21,7 +21,7 @@ const extLogin = 'mbr/mbr_member_login.do';
 // function for advancing the list page
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer_1.default.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser = await puppeteer_1.default.launch({ headless: false, args: ['--no-sandbox'] });
     try {
         const page = await browser.newPage();
         await page.setViewport({ width: 1366, height: 768 });

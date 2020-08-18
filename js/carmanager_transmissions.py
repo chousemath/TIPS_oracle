@@ -90,10 +90,11 @@ for _, row in df.iterrows():
     transmission = row['transmission']
     year = str(row['modelyear'])
 
-    n1 = f'{id} {color}'
-    n2 = f'{id} {color} {transmission}'
-    n3 = f'{id} {color} {transmission} {accident}'
-    n4 = f'{id} {color} {transmission} {accident} {warranty}'
+    n1 = n2 = n3 = n4 = id
+    #n1 = f'{id} {color}'
+    #n2 = f'{id} {color} {transmission}'
+    #n3 = f'{id} {color} {transmission} {accident}'
+    #n4 = f'{id} {color} {transmission} {accident} {warranty}'
 
     if id in colors:
         colors[id][color] = 1

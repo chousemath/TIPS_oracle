@@ -34,7 +34,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         const baseURL = (pageNumber) => pageLink.replace('page%22%3A1', `page%22%3A${pageNumber}`);
         const pageLinks = lodash_1.default.shuffle([...Array(pageLimit).keys()].map(pageNumber => baseURL(pageNumber + 1)));
         const browser = await puppeteer_1.default.launch({
-            headless: true,
+            headless: false,
             args: ['--no-sandbox'],
         });
         const page = await browser.newPage();

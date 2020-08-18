@@ -18,7 +18,7 @@ const extData = 'Car/Data';
 const pageLimit = 500; // conservative page limit
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer_1.default.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser = await puppeteer_1.default.launch({ headless: false, args: ['--no-sandbox'] });
     try {
         const page = await browser.newPage();
         await page.setViewport({ width: 1366, height: 768 });
