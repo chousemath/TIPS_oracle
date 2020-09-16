@@ -79,26 +79,30 @@ with open('carmanager.csv', 'a+') as fd:
 
         file_count = len(files)
 
-        t1_limit = file_count // 5
-        t2_limit = 2 * file_count // 5
-        t3_limit = 3 * file_count // 5
-        t4_limit = 3 * file_count // 5
+        t1_limit = 1 * file_count // 6
+        t2_limit = 2 * file_count // 6
+        t3_limit = 3 * file_count // 6
+        t4_limit = 4 * file_count // 6
+        t5_limit = 5 * file_count // 6
 
         t1 = threading.Thread(target=write_rows, args=(1, files[:t1_limit],))
         t2 = threading.Thread(target=write_rows, args=(2, files[t1_limit:t2_limit],))
         t3 = threading.Thread(target=write_rows, args=(3, files[t2_limit:t3_limit],))
         t4 = threading.Thread(target=write_rows, args=(4, files[t3_limit:t4_limit],))
-        t5 = threading.Thread(target=write_rows, args=(5, files[t4_limit:],))
+        t5 = threading.Thread(target=write_rows, args=(5, files[t4_limit:t5_limit],))
+        t6 = threading.Thread(target=write_rows, args=(6, files[t5_limit:],))
 
         t1.start()
         t2.start()
         t3.start()
         t4.start()
         t5.start()
+        t6.start()
 
         t1.join()
         t2.join()
         t3.join()
         t4.join()
         t5.join()
+        t6.join()
 
