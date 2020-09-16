@@ -78,9 +78,10 @@ def gen_item_id(row) -> str:
     color = str(row.get('color', 'xxx')).strip()
     transmission = str(row.get('transmission', 'xxx')).strip()
     accident = str(row.get('accident', 'xxx')).strip()
-    warranty = str(row.get('warranty', 'xxx')).strip()
+    #warranty = str(row.get('warranty', 'xxx')).strip()
     mileage_tag = gen_mileage_tag(row.get('mileage', 0))
-    return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr}')
+    return norm(f'{nm} {color} {accident} {yr} {mileage_tag}')
+    #return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr}')
     #return norm(f'{nm} {color} {transmission} {accident} {warranty} {yr} {mileage_tag}')
 
 
