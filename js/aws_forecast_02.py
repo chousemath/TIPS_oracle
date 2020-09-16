@@ -82,32 +82,20 @@ def gen_item_id(row) -> str:
 def adjust_price(row) -> int:
     return int(row.get('target_value', 0))
 
-#df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
-df = df[['timestamp', 'plate_num']]
+# truncate off the scraping date to the day
+#df['timestamp'] = df.apply(lambda x: dt.utcfromtimestamp(x.get('timestamp')).strftime('%Y-%m-%d 00:00:00'), axis=1)
+df['accident'] = df.apply(lambda x: no_accident(x), axis=1)
+df['color'] = df.apply(lambda x: _color(x), axis=1)
+df['transmission'] = df.apply(lambda x: _transmission(x), axis=1)
+df['warranty'] = df.apply(lambda x: yes_warranty(x), axis=1)
+df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
+df['target_value'] = df.apply(lambda x: adjust_price(x), axis=1)
+df = df[~df['name_year_color'].str.contains('xxx')]
+df = df[df['target_value'] != 0]
+df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
+
+df = df[['timestamp', 'item_id', 'plate_num']]
 df = df.dropna()
 df = df.sort_values(by=['timestamp'])
 
-df.to_csv('carmanager_forecast.csv', index=False, header=False)
-headers = list(df.columns.values)
-attributes = []
-for h in headers:
-    t = str(df[h].dtype)
-    if h == 'timestamp':
-        t = 'timestamp'
-    elif t == 'object':
-        t = 'string'
-    elif t == 'int64':
-        t = 'integer'
-
-    attributes.append({
-        #"AttributeName": option_alias[h] if h in option_alias else h,
-        "AttributeName": h,
-        "AttributeType": t,
-    })
-
-with io.open('carmanager_forecast.json', 'w', encoding='utf-8') as f:
-    f.write(json.dumps({'Attributes': attributes}, ensure_ascii=False, indent=4))
-
-#with io.open('option_alias.json', 'w', encoding='utf-8') as f:
-#    f.write(json.dumps(option_alias, ensure_ascii=False, indent=4))
-#
+df.to_csv('carmanager_sales.csv', index=False, header=False)
