@@ -6,6 +6,7 @@ import unicodedata as ud
 import urllib.parse
 import json
 import io
+from math import ceil
 
 
 def norm(input: str) -> str:

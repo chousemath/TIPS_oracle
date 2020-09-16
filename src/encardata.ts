@@ -85,7 +85,7 @@ interface Inspection {
     const baseURL = (pageNumber: number) => pageLink.replace('page%22%3A1', `page%22%3A${pageNumber}`);
     const pageLinks = _.shuffle([...Array(pageLimit).keys()].map(pageNumber => baseURL(pageNumber + 1)));
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ['--no-sandbox'],
     });
     const page = await browser.newPage();

@@ -22,7 +22,7 @@ const lodash_1 = __importDefault(require("lodash"));
 const data = require('./links.json');
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer_1.default.launch({ headless: false, args: ['--no-sandbox'] });
+    const browser = await puppeteer_1.default.launch({ headless: true, args: ['--no-sandbox'] });
     const page = await browser.newPage();
     const links = lodash_1.default.shuffle(Object.keys(data));
     /* For convenience, we scrape the raw HTML code from the detail page for

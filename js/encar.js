@@ -30,7 +30,7 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
     // The navigation strategy used by Encar.com follows a regular pattern
     const baseURL = (pgNum) => root.replace('page%22%3A1', `page%22%3A${pgNum}`);
-    const browser = await puppeteer_1.default.launch({ headless: false, args: ['--no-sandbox'] });
+    const browser = await puppeteer_1.default.launch({ headless: true, args: ['--no-sandbox'] });
     const page = await browser.newPage();
     for (let pg = 1; pg < pageLimit; pg++) {
         try {

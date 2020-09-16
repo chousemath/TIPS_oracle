@@ -5,7 +5,7 @@ import _ from 'lodash';
 const data = require('./links_encar_domestic.json');
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
-    const browser = await puppeteer.launch({headless: false, args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
     const page = await browser.newPage();
     const links = _.shuffle(Object.keys(data));
     for (let link of links) {

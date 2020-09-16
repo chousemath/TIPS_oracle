@@ -6,7 +6,7 @@ const root = 'http://www.encar.com/dc/dc_carsearchlist.do?carType=kor#!%7B%22act
 const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
 (async () => {
     const baseURL = (pgNum: number): string => root.replace('page%22%3A1', `page%22%3A${pgNum}`);
-    const browser = await puppeteer.launch({headless: false, args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
     const page = await browser.newPage();
     for (let pg = 1; pg < 3500; pg++) {
         try {
