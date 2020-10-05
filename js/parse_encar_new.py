@@ -33,6 +33,8 @@ def write_rows(thread_id: int, files: List[str]):
                 model_trim = soup.find('meta', {'name': 'WT.z_model_trim'})['content']
                 model = soup.find('meta', {'name': 'WT.z_model'})['content']
                 description = soup.find('meta', {'name': 'description'})['content']
+                views = soup.find('div', {'class' :'prod_infoetc'}).text
+
                 
                 writer.writerow([
                     ts,
@@ -50,6 +52,7 @@ def write_rows(thread_id: int, files: List[str]):
                     model_trim,
                     model,
                     description,
+                    views,
                 ])
                 print(f'thread-{thread_id}, row written, {car_id} {model}')
         except Exception as e:
