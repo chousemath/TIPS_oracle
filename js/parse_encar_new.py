@@ -5,9 +5,6 @@ import csv
 from os import path, listdir, remove, system
 import json
 
-if path.exists('encar_new2.csv'):
-    remove('encar_new2.csv')
-
 root_dirs = ['pages_detail_encar_domestic', 'pages_detail']
 writer = None # global variable
 

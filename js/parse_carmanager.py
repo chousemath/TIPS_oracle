@@ -5,11 +5,7 @@ import csv
 from os import path, listdir, remove, system
 import json
 
-if path.exists('carmanager.csv'):
-    remove('carmanager.csv')
-
 root_dirs = ['pages_detail_carmanager']
-#root_dirs = ['carmanager_to_zip']
 writer = None # global variable
 
 def write_rows(thread_id: int, files: List[str]):
