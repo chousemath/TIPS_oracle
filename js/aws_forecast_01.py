@@ -98,7 +98,7 @@ df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
 df['target_value'] = df.apply(lambda x: adjust_price(x), axis=1)
 df = df[~df['name_year_color'].str.contains('xxx')]
 df = df[df['target_value'] != 0]
-df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
+#df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
 
 #opt_count = 0
 #option_alias = {}
@@ -124,8 +124,8 @@ df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
 
 df = df.drop_duplicates()
 
-#df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
-df = df[['timestamp', 'target_value', 'item_id']]
+df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
+#df = df[['timestamp', 'target_value', 'item_id']]
 #df['modelyear'] = df.apply(lambda x: str(x.get('modelyear')), axis=1)
 #df['mileage'] = df.apply(lambda x: str(x.get('mileage')), axis=1)
 df = df.dropna()

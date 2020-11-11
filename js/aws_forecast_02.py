@@ -92,7 +92,8 @@ df['name_year_color'] = df.apply(lambda x: gen_nm_yr_color(x), axis=1)
 df['target_value'] = df.apply(lambda x: adjust_price(x), axis=1)
 df = df[~df['name_year_color'].str.contains('xxx')]
 df = df[df['target_value'] != 0]
-df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
+#df['item_id'] = df.apply(lambda x: gen_item_id(x), axis=1)
+df = df[['timestamp', 'target_value', 'item_id', 'modelyear', 'color', 'transmission', 'mileage', 'accident', 'warranty']]
 
 df = df[['timestamp', 'item_id', 'plate_num']]
 df = df.dropna()

@@ -18,10 +18,10 @@ const sleep = (ms = 0) => new Promise(r => setTimeout(r, ms));
         await page.goto(root, { waitUntil: 'networkidle2', timeout: 0 });
         await page.evaluate(() => (document.getElementById('userid') as HTMLInputElement).value = '');
         await page.focus('#userid');
-        await page.keyboard.type('trive'); // type in id
+        await page.keyboard.type('junya8383'); // type in id
         await page.evaluate(() => (document.getElementById('userpwd') as HTMLInputElement).value = '');
         await page.focus('#userpwd');
-        await page.keyboard.type('trive1004'); // type in password
+        await page.keyboard.type('h1325817'); // type in password
         await page.evaluate(() => commitLogin());
         await sleep(1000);
         await page.goto(`${root}/${extData}`, { waitUntil: 'networkidle2', timeout: 0 });

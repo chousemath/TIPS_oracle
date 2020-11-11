@@ -2,18 +2,18 @@ from typing import List
 import threading
 from bs4 import BeautifulSoup
 import csv
-from os import path, listdir, remove
+from os import path, listdir, remove, system
 import json
 
-if path.exists('encar_new.csv'):
-    remove('encar_new.csv')
+if path.exists('encar_new2.csv'):
+    remove('encar_new2.csv')
 
 root_dirs = ['pages_detail_encar_domestic', 'pages_detail']
 writer = None # global variable
 
 def write_rows(thread_id: int, files: List[str]):
-    for (p, file_name) in files:
-        ts = int(file_name.split('-')[0]) // 1000
+    for (p, fname) in files:
+        ts = int(fname.split('-')[0]) // 1000
         try:
             with open(p, 'r') as f:
                 contents = f.read()
@@ -33,8 +33,11 @@ def write_rows(thread_id: int, files: List[str]):
                 model_trim = soup.find('meta', {'name': 'WT.z_model_trim'})['content']
                 model = soup.find('meta', {'name': 'WT.z_model'})['content']
                 description = soup.find('meta', {'name': 'description'})['content']
+                seller = soup.find('div', {'class' :'detail_seller'}).text
                 views = soup.find('div', {'class' :'prod_infoetc'}).text
 
+                # ims = [x.get('src', 'xxx') for x in soup.findAll('img')]
+                # ims = '|||'.join(ims)
                 
                 writer.writerow([
                     ts,
@@ -51,14 +54,20 @@ def write_rows(thread_id: int, files: List[str]):
                     model_name,
                     model_trim,
                     model,
+                    seller,
                     description,
                     views,
+                    # ims,
                 ])
-                print(f'thread-{thread_id}, row written, {car_id} {model}')
+            cmd = f'aws s3 cp {p} s3://pages-detail-encar/{fname}'
+            system(cmd)
         except Exception as e:
             print(str(e))
+        finally:
+            if path.exists(p):
+                remove(p)
 
-with open('encar_new.csv', 'a+') as fd:
+with open('encar_new2.csv', 'a+') as fd:
     writer = csv.writer(fd)
     for root_dir in root_dirs:
         files = [(path.join(root_dir, f), f) for f in listdir(root_dir) if '.html' in f]

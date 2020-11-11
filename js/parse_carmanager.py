@@ -2,7 +2,7 @@ from typing import List
 import threading
 from bs4 import BeautifulSoup
 import csv
-from os import path, listdir, remove
+from os import path, listdir, remove, system
 import json
 
 if path.exists('carmanager.csv'):
@@ -13,8 +13,8 @@ root_dirs = ['pages_detail_carmanager']
 writer = None # global variable
 
 def write_rows(thread_id: int, files: List[str]):
-    for (p, file_name) in files:
-        ts = int(file_name.split('-')[0]) // 1000
+    for (p, fname) in files:
+        ts = int(fname.split('-')[0]) // 1000
         try:
             with open(p, 'r') as f:
                 contents = f.read()
@@ -68,9 +68,13 @@ def write_rows(thread_id: int, files: List[str]):
                     yes_warranty,
                     car_options,
                 ])
-                print(f'thread-{thread_id}, row written, {car_plate_num}')
+            cmd = f'aws s3 cp {p} s3://{p.replace("_", "-")}'
+            system(cmd)
         except Exception as e:
             print(str(e))
+        finally:
+            if path.exists(p):
+                remove(p)
 
 with open('carmanager.csv', 'a+') as fd:
     writer = csv.writer(fd)
