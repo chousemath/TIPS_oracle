@@ -1,5 +1,15 @@
 # TIPS Oracle
 
+### General operating instructions
+
+```
+python parse_encar_new.py
+python parse_carmanager.py
+./encar_foreign.sh
+./encar_domestic.sh
+./carmanager.sh
+```
+
 ### Setting up GPU/Tensorflow on Ubuntu 18
 
 ```bash
@@ -138,10 +148,3 @@ $ forever list # check to make sure your processes are ok
 * How did price decrease with Japan hate?
 * View carmanager first (gyeongido)
 
-
-Array.from(document.getElementsByTagName('button')).filter(x => x.dataset.contentId === '784f4db163ee4b39')[0].click();
-
-
-http://naver.me/xc74csVB
-
-https://www.nextunicorn.kr/online-ir/scale_up_IR
