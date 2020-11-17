@@ -139,3 +139,7 @@ $ forever list # check to make sure your processes are ok
 * View carmanager first (gyeongido)
 
 
+Array.from(document.getElementsByTagName('button')).filter(x => x.dataset.contentId === '784f4db163ee4b39')[0].click();
+
+
+
