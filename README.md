@@ -1,5 +1,27 @@
 # TIPS Oracle
 
+```js
+{
+var carBox = 'box_car_ltem';
+var boxes = Array.from(document.getElementsByClassName(carBox));
+function extract(x) {
+    var res = {};
+    var aDetail = x.getElementsByClassName('a_detail')[0];
+    res.id = aDetail.id;
+    var icon = x.getElementsByClassName('ico')[0].getElementsByTagName('img')[0];
+    res.status = icon.alt;
+    res.name = x.getElementsByClassName('car_info_top')[0].getElementsByTagName('dd')[0].innerText.replace('\n', ' ').replace('\r', ' ');
+    var bottom = x.getElementsByClassName('car_info_bottom')[0];
+    var bottomRows = Array.from(bottom.getElementsByTagName('li')).map(x => x.innerText);
+    for (var i = 0; i < bottomRows.length; i++) { res['row' + i] = bottomRows[i];}
+    res.description = bottom.getElementsByTagName('dt')[0].innerText;
+    return res;
+}
+var data = boxes.map(extract);
+console.log(data);
+}
+```
+
 ### General operating instructions
 
 ```
