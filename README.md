@@ -1,5 +1,9 @@
 # TIPS Oracle
 
+git@gitlab.com:jochoi0707/tips_light.git
+
+https://gitlab.com/jochoi0707/tips_light.git
+
 ```js
 {
 var carBox = 'box_car_ltem';
